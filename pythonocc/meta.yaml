@@ -28,14 +28,12 @@ requirements:
     - ninja ==1.8.2
     - swig ==3.0.12
     - freetype ==2.9.1
-    - smesh ==6.7.6
 
   run:
     - oce ==0.18.3
     - python
     - tbb >=2018_20171205
     - freetype >=2.7
-    - smesh ==6.7.6
     - six
 
 test:
@@ -44,7 +42,6 @@ test:
     - wxpython          [py27]
     - pyside            [py27]
     - pyqt >=5
-    - smesh ==6.7.6
 
 about:
   home: https://github.com/tpaviot/pythonocc-core
