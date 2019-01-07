@@ -5,10 +5,22 @@ pool:
   vmImage: 'Ubuntu-16.04'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- task: CondaEnvironment@1
+  inputs:
+    #createCustomEnvironment: # Optional
+    #environmentName: # Required when createCustomEnvironment == True
+    #packageSpecs: 'python=3' # Optional
+    #installOptions: # Optional
+    #createOptions: # Optional
+    #cleanEnvironment: # Optional
+    createCustomEnvironment: False
+    updateConda: True
+    packageSpecs: conda-build python=3
+    installOptions: --channel conda-forge
+
+- script: conda build ./oce-18.3
+    displayName: 'build oce'
+
+- script: conda build ./pythonocc
+    displayName: 'build pythonocc'
