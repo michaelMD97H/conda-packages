@@ -19,8 +19,6 @@ steps:
     packageSpecs: conda-build python=3
     installOptions: --channel conda-forge
 
-- script: 'conda build ./oce-18.3'
-    displayName: 'build oce'
+- script: conda build ./oce-18.3
 
-- script: 'conda build ./pythonocc'
-    displayName: 'build pythonocc'
+- script: conda build ./pythonocc
