@@ -1,0 +1,30 @@
+mkdir build
+cd build
+
+REM Remove dot from PY_VER for use in library name
+set MY_PY_VER=%PY_VER:.=%
+
+REM Configure step
+cmake -G "Ninja" -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
+ -DPYTHONOCC_BUILD_TYPE=RelWithDebInfo ^
+ -DCMAKE_PREFIX_PATH="%LIBRARY_PREFIX%" ^
+ -DCMAKE_SYSTEM_PREFIX_PATH="%LIBRARY_PREFIX%" ^
+ -DPYTHON_EXECUTABLE:FILEPATH="%PYTHON%" ^
+ -DPYTHON_INCLUDE_DIR:PATH="%PREFIX%"/include ^
+ -DPYTHON_LIBRARY:FILEPATH="%PREFIX%"/libs/python%MY_PY_VER%.lib ^
+ -DPYTHONOCC_WRAP_SMESH=OFF ^
+ -DSMESH_INCLUDE_PATH:PATH="%LIBRARY_PREFIX%"/include/smesh ^
+ -DPYTHONOCC_WRAP_SMESH_NETGENPLUGIN=OFF ^
+ ..
+ 
+REM Build step 
+cmake --build . --config Release
+
+REM Install step
+ninja install
+
+
+REM copy the source
+REM cd ..
+REM xcopy src "%LIBRARY_PREFIX%\src\pythonocc-core\src" /s /e /i
+REM if errorlevel 1 exit 1

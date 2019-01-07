@@ -1,0 +1,52 @@
+# change the version number to "0.17.1" or "0.18" in case of a release build
+package:
+  name: pythonocc-core
+  version: 0.18.2
+
+source:
+  git_url: https://github.com/tpaviot/pythonocc-core.git
+
+
+build:
+  script_env:
+    - CC
+    - CXX
+
+  number: 0
+  binary_relocation: false [osx]
+  features:
+    - vc9               [win and py27]
+    - vc14              [win and py35]
+    - vc14              [win and py36]
+
+requirements:
+  build:
+    - python
+    - oce ==0.18.3
+    - tbb ==2018_20171205
+    - cmake ==3.12.2
+    - ninja ==1.8.2
+    - swig ==3.0.12
+    - freetype ==2.9.1
+    - smesh ==6.7.6
+
+  run:
+    - oce ==0.18.3
+    - python
+    - tbb >=2018_20171205
+    - freetype >=2.7
+    - smesh ==6.7.6
+    - six
+
+test:
+  requires:
+    - numpy
+    - wxpython          [py27]
+    - pyside            [py27]
+    - pyqt >=5
+    - smesh ==6.7.6
+
+about:
+  home: https://github.com/tpaviot/pythonocc-core
+  license: LGPL
+  summary: An industrial strength 3D CAD python package
