@@ -3,35 +3,35 @@ trigger:
 
 jobs:
 - job: BuildOCE
-    timeoutInMinutes: 120
-    
-    pool:
-      vmImage: 'Ubuntu-16.04'
-    
-    steps:
-    
-    - task: CondaEnvironment@1
-      inputs:
-        createCustomEnvironment: False
-        updateConda: True
-        packageSpecs: conda-build conda-verify python=3
-        installOptions: --channel conda-forge
-    
-    - script: cd oce-0.18.3 && conda build -c conda-forge -c dlr-sc . && cd ..
+  timeoutInMinutes: 120
+  
+  pool:
+    vmImage: 'Ubuntu-16.04'
+  
+  steps:
+  
+  - task: CondaEnvironment@1
+    inputs:
+      createCustomEnvironment: False
+      updateConda: True
+      packageSpecs: conda-build conda-verify python=3
+      installOptions: --channel conda-forge
+  
+  - script: cd oce-0.18.3 && conda build -c conda-forge -c dlr-sc . && cd ..
 
 - job: BuildPythonOCC
-    timeoutInMinutes: 120
-    
-    pool:
-      vmImage: 'Ubuntu-16.04'
-    
-    steps:
-    
-    - task: CondaEnvironment@1
-      inputs:
-        createCustomEnvironment: False
-        updateConda: True
-        packageSpecs: conda-build conda-verify python=3
-        installOptions: --channel conda-forge
-            
-    - script: cd pythonocc && conda build -c conda-forge -c dlr-sc . && cd ..
+  timeoutInMinutes: 120
+  
+  pool:
+    vmImage: 'Ubuntu-16.04'
+  
+  steps:
+  
+  - task: CondaEnvironment@1
+    inputs:
+      createCustomEnvironment: False
+      updateConda: True
+      packageSpecs: conda-build conda-verify python=3
+      installOptions: --channel conda-forge
+          
+  - script: cd pythonocc && conda build -c conda-forge -c dlr-sc . && cd ..
