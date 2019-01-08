@@ -13,12 +13,12 @@ jobs:
   - task: CondaEnvironment@1
     inputs:
       createCustomEnvironment: False
-      updateConda: True
-      packageSpecs: conda-build conda-verify python=3
+      updateConda: False
+      packageSpecs: conda-build conda-verify python=3 conda=4.3.34
       installOptions: --channel conda-forge
   
   - script: cd oce-0.18.3 && conda build -c conda-forge -c dlr-sc . && cd ..
     displayName: 'OCE'
           
-  - script: cd pythonocc && conda build -c conda-forge -c dlr-sc . && cd ..
+  - bash: cd pythonocc && conda build -c conda-forge -c dlr-sc . && cd ..
     displayName: 'PythonOCC'
