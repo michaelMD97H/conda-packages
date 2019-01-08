@@ -1,0 +1,24 @@
+parameters:
+  name: 'Build job'  
+  vmImage: 'Ubuntu-16.04'
+
+jobs:
+- job: ${{ parameters.name }}
+  timeoutInMinutes: 120
+  
+  pool: 
+    vmImage: ${{ parameters.vmImage }}
+  
+  steps:
+  - task: CondaEnvironment@1
+    inputs:
+      createCustomEnvironment: False
+      updateConda: True
+      packageSpecs: conda-build conda-verify python=3
+      installOptions: --channel conda-forge
+  
+  - bash: cd oce-0.18.3 && conda build -c conda-forge -c dlr-sc . && cd ..
+    displayName: 'OCE'
+          
+  - bash: cd pythonocc && conda build -c conda-forge -c dlr-sc . && cd ..
+    displayName: 'PythonOCC'

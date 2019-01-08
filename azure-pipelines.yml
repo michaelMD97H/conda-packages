@@ -2,21 +2,17 @@ trigger:
 - master
 
 jobs:
-- job: BuildOCE
-  timeoutInMinutes: 120
-  
-  pool:
-    vmImage: 'Ubuntu-16.04'
-  
-  steps:
-  
-  - task: CondaEnvironment@1
-    inputs:
-      createCustomEnvironment: False
-      updateConda: True
-      packageSpecs: conda-build conda-verify python=3
-      installOptions: --channel conda-forge
-  
-  - script: cd oce-0.18.3 && conda build -c conda-forge -c dlr-sc . && cd ..
-          
-  - script: cd pythonocc && conda build -c conda-forge -c dlr-sc . && cd ..
+- template: build-job.yml
+  parameters:
+    name: Linux
+    vmImage: 'ubuntu-16.04'
+
+- template:  build-job.yml
+  parameters:
+    name: macOS
+    vmImage: 'macOS-10.13'
+
+- template:  build-job.yml
+  parameters:
+    name: Windows
+    vmImage: 'vs2017-win2016'
