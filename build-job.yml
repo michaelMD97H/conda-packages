@@ -20,8 +20,18 @@ jobs:
   - script: conda info && conda list
     displayName: 'Conda info'
   
-  - script: cd oce-0.18.3 && conda build -c conda-forge -c dlr-sc . && cd ..
+  - bash: |
+      cd oce-0.18.3
+      conda build --token $TOKEN --user cadquery -c conda-forge -c dlr-sc .
+      cd ..
     displayName: 'OCE'
+    env:
+      TOKEN: $(anaconda.TOKEN)
           
-  - bash: cd pythonocc && conda build -c conda-forge -c dlr-sc . && cd ..
+  - bash: |
+      cd pythonocc
+      conda build --token $TOKEN --user cadquery -c conda-forge -c dlr-sc .
+      cd ..
     displayName: 'PythonOCC'
+    env:
+      TOKEN: $(anaconda.TOKEN)
