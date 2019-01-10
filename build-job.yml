@@ -19,6 +19,10 @@ jobs:
   
   - script: conda info && conda list
     displayName: 'Conda info'
+    
+  - script: call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
+    displayName: 'Activate MSVC'
+    condition: eq( variables['Agent.OS'], 'Windows_NT' )
   
   - bash: |
       cd oce-0.18.3
