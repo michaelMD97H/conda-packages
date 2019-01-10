@@ -15,4 +15,4 @@ jobs:
 - template:  build-job.yml
   parameters:
     name: Windows
-    vmImage: 'vs2015-win2012r2'
+    vmImage: 'vs2017-win2016'
