@@ -30,7 +30,7 @@ jobs:
       TOKEN: $(anaconda.TOKEN)
       
   - script: |
-      call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64 && set CXX=cl
+      call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64 && set CC=cl && set CXX=cl
       cd oce-0.18.3
       conda build --token $TOKEN --user cadquery -c conda-forge -c dlr-sc .
       cd ..
@@ -49,7 +49,7 @@ jobs:
       TOKEN: $(anaconda.TOKEN)
       
   - script: |
-      call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64 && set CXX=cl
+      call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64 && set CC=cl && set CXX=cl
       cd pythonocc
       conda build --token $TOKEN --user cadquery -c conda-forge -c dlr-sc .
       cd ..
