@@ -4,7 +4,7 @@ parameters:
   py: '3.6'
 
 jobs:
-- job: ${{ parameters.name }}_oce_${{ parameters.py }}
+- job: ${{ parameters.name }}_oce_${{ replace(parameters.py, '.', '_') }}
   timeoutInMinutes: 240
   
   pool: 
@@ -40,7 +40,7 @@ jobs:
     env:
       TOKEN: $(anaconda.TOKEN)
 
-- job: ${{ parameters.name }}_pythonocc_${{ parameters.py }}
+- job: ${{ parameters.name }}_pythonocc_${{ replace(parameters.py, '.', '_') }}
   timeoutInMinutes: 240
   
   pool: 
