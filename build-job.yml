@@ -3,7 +3,7 @@ parameters:
   vmImage: 'Ubuntu-16.04'
 
 jobs:
-- job: ${{ parameters.name }} oce
+- job: ${{ parameters.name }}_oce
   timeoutInMinutes: 240
   
   pool: 
@@ -39,7 +39,7 @@ jobs:
     env:
       TOKEN: $(anaconda.TOKEN)
 
-- job: ${{ parameters.name }} pythonocc
+- job: ${{ parameters.name }}_pythonocc
   timeoutInMinutes: 240
   
   pool: 
