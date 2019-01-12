@@ -4,8 +4,7 @@ package:
   version: 0.18.2
 
 source:
-  git_url: https://github.com/tpaviot/pythonocc-core.git
-
+  git_url: https://github.com/CadQuery/pythonocc-core.git
 
 build:
   script_env:
