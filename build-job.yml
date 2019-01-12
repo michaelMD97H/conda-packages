@@ -1,10 +1,11 @@
 parameters:
   name: 'Build job'  
   vmImage: 'Ubuntu-16.04'
-  py: '3.6'
+  py_maj: '3'
+  py_min: '6'
 
 jobs:
-- job: ${{ parameters.name }}_oce_${{ replace(parameters.py, '.', '_') }}
+- job: ${{ parameters.name }}_oce_${{ parameters.py_maj }}_${{ parameters.py_min }}
   timeoutInMinutes: 240
   
   pool: 
@@ -15,7 +16,7 @@ jobs:
     inputs:
       createCustomEnvironment: False
       updateConda: False
-      packageSpecs: conda-build=3.0.22 conda-verify libarchive python=${{ parameters.py }} anaconda-client
+      packageSpecs: conda-build=3.0.22 conda-verify libarchive python=${{ parameters.py_maj }}.${{ parameters.py_min }} anaconda-client
       installOptions: --channel conda-forge
   
   - script: conda info && conda list
@@ -40,7 +41,7 @@ jobs:
     env:
       TOKEN: $(anaconda.TOKEN)
 
-- job: ${{ parameters.name }}_pythonocc_${{ replace(parameters.py, '.', '_') }}
+- job: ${{ parameters.name }}_pythonocc_${{ parameters.py_maj }}_${{ parameters.py_min }}
   timeoutInMinutes: 240
   
   pool: 
@@ -51,7 +52,7 @@ jobs:
     inputs:
       createCustomEnvironment: False
       updateConda: False
-      packageSpecs: conda-build=3.0.22 conda-verify libarchive python=${{ parameters.py }} anaconda-client
+      packageSpecs: conda-build=3.0.22 conda-verify libarchive python=${{ parameters.py_maj }}.${{ parameters.py_min }} anaconda-client
       installOptions: --channel conda-forge
   
   - script: conda info && conda list
