@@ -1,6 +1,7 @@
 parameters:
   name: 'Build job'  
   vmImage: 'Ubuntu-16.04'
+  py: '3.6'
 
 jobs:
 - job: ${{ parameters.name }}_oce
@@ -50,7 +51,7 @@ jobs:
     inputs:
       createCustomEnvironment: False
       updateConda: False
-      packageSpecs: conda-build=3.0.22 conda-verify libarchive python=3 anaconda-client
+      packageSpecs: conda-build=3.0.22 conda-verify libarchive python=${{ parameters.py }} anaconda-client
       installOptions: --channel conda-forge
   
   - script: conda info && conda list
