@@ -22,24 +22,3 @@ jobs:
     vmImage: 'vs2017-win2016'
     py_maj: 3
     py_min: 6
-    
-- template: build-job.yml
-  parameters:
-    name: Linux
-    vmImage: 'ubuntu-16.04'
-    py_maj: 2
-    py_min: 7
-
-- template:  build-job.yml
-  parameters:
-    name: macOS
-    vmImage: 'macOS-10.13'
-    py_maj: 2
-    py_min: 7
-
-- template:  build-job.yml
-  parameters:
-    name: Windows
-    vmImage: 'vs2017-win2016'
-    py_maj: 2
-    py_min: 7
