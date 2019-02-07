@@ -9,7 +9,7 @@ cd build
 
 # Configure step
 cmake -G Ninja -DCMAKE_INSTALL_PREFIX=$PREFIX \
- -DCMAKE_BUILD_TYPE=Release \
+ -DCMAKE_BUILD_TYPE=RelWithDebInfo \
  -DOCE_TESTING=OFF \
  -DOCE_USE_PCH=OFF \
  -DOCE_COPY_HEADERS_BUILD=ON \
