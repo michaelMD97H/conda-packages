@@ -27,6 +27,7 @@ jobs:
       conda build --token $TOKEN --user cadquery -c conda-forge -c dlr-sc .
       cd ..
     displayName: 'OCE'
+    failOnStderr: true
     condition: ne( variables['Agent.OS'], 'Windows_NT' )
     env:
       TOKEN: $(anaconda.TOKEN)
@@ -37,6 +38,7 @@ jobs:
       conda build --token %TOKEN% --user cadquery -c conda-forge -c dlr-sc .
       cd ..
     displayName: 'OCE - Windows specific'
+    failOnStderr: true
     condition: eq( variables['Agent.OS'], 'Windows_NT' )
     env:
       TOKEN: $(anaconda.TOKEN)
@@ -63,6 +65,7 @@ jobs:
       conda build --token $TOKEN --user cadquery -c cadquery -c conda-forge -c dlr-sc .
       cd ..
     displayName: 'PythonOCC'
+    failOnStderr: true
     condition: ne( variables['Agent.OS'], 'Windows_NT' )
     env:
       TOKEN: $(anaconda.TOKEN)
@@ -73,6 +76,7 @@ jobs:
       conda build --token %TOKEN% --user cadquery -c cadquery -c conda-forge -c dlr-sc .
       cd ..
     displayName: 'PythonOCC - Windows specific'
+    failOnStderr: true
     condition: eq( variables['Agent.OS'], 'Windows_NT' )
     env:
       TOKEN: $(anaconda.TOKEN)
