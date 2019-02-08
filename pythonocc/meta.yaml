@@ -29,7 +29,7 @@ requirements:
     - freetype ==2.9.1
 
   run:
-    - oce ==0.18.3
+    - oce ==0.18
     - python
     - tbb >=2018_20171205
     - freetype >=2.7
