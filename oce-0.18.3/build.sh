@@ -37,7 +37,7 @@ ninja install > installed_files.txt
 #make install > installed_files.log  # to reduce the number of lines to the console
 
 if [ `uname` != Darwin ]; then
-    python $RECIPE_DIR/remove-system-libs.py $PREFIX/lib/oce-0.18/OCE-libraries-release.cmake
+    python $RECIPE_DIR/remove-system-libs.py $PREFIX/lib/oce-0.18/OCE-libraries-relwithdebinfo.cmake
 else
-    python $RECIPE_DIR/remove-system-libs.py $PREFIX/OCE.framework/Versions/0.18/Resources/OCE-libraries-release.cmake
+    python $RECIPE_DIR/remove-system-libs.py $PREFIX/OCE.framework/Versions/0.18/Resources/OCE-libraries-relwithdebinfo.cmake
 fi
