@@ -9,6 +9,7 @@ cd build
 
 # Configure step
 cmake -G Ninja -DCMAKE_INSTALL_PREFIX=$PREFIX \
+ -DCMAKE_CXX_FLAGS=-O1
  -DCMAKE_BUILD_TYPE=RelWithDebInfo \
  -DOCE_TESTING=OFF \
  -DOCE_USE_PCH=OFF \
