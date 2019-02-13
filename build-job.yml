@@ -32,10 +32,10 @@ jobs:
     env:
       TOKEN: $(anaconda.TOKEN)
       
-  - bash: |
-      call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64 && set CC=cl && set CXX=cl && \
-      cd oce-0.18.3 && \
-      conda build --token %TOKEN% --user cadquery -c conda-forge -c dlr-sc . && \
+  - script: |
+      call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64 && set CC=cl && set CXX=cl && ^
+      cd oce-0.18.3 && ^
+      conda build --token %TOKEN% --user cadquery -c conda-forge -c dlr-sc . && ^
       cd ..
     displayName: 'OCE - Windows specific'
     failOnStderr: false
@@ -70,10 +70,10 @@ jobs:
     env:
       TOKEN: $(anaconda.TOKEN)
       
-  - bash: |
-      call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64 && set CC=cl && set CXX=cl  && \
-      cd pythonocc && \
-      conda build --token %TOKEN% --user cadquery -c cadquery -c conda-forge -c dlr-sc . && \
+  - script: |
+      call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64 && set CC=cl && set CXX=cl  && ^
+      cd pythonocc && ^
+      conda build --token %TOKEN% --user cadquery -c cadquery -c conda-forge -c dlr-sc . && ^
       cd ..
     displayName: 'PythonOCC - Windows specific'
     failOnStderr: false
@@ -102,18 +102,18 @@ jobs:
       cd freeimageplus && \
       conda build --token $TOKEN --user cadquery -c cadquery -c conda-forge . && \
       cd ..
-    displayName: 'PythonOCC'
+    displayName: 'FreeImagePlus'
     failOnStderr: false
     condition: ne( variables['Agent.OS'], 'Windows_NT' )
     env:
       TOKEN: $(anaconda.TOKEN)
       
-  - bash: |
-      call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64 && set CC=cl && set CXX=cl && \
-      cd freeimageplus && \
-      conda build --token %TOKEN% --user cadquery -c cadquery -c conda-forge . &&
+  - script: |
+      call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64 && set CC=cl && set CXX=cl && ^
+      cd freeimageplus && ^
+      conda build --token %TOKEN% --user cadquery -c cadquery -c conda-forge . && ^
       cd ..
-    displayName: 'PythonOCC - Windows specific'
+    displayName: 'FreeImagePlus - Windows specific'
     failOnStderr: false
     condition: eq( variables['Agent.OS'], 'Windows_NT' )
     env:
