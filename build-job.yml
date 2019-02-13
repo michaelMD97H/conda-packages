@@ -19,10 +19,10 @@ jobs:
       packageSpecs: conda-build=3.0.22 conda-verify libarchive python=${{ parameters.py_maj }}.${{ parameters.py_min }} anaconda-client
       installOptions: --channel conda-forge
   
-  - script: conda info && conda list
+  - bash: conda info && conda list
     displayName: 'Conda info'
   
-  - script: |
+  - bash: |
       cd oce-0.18.3 && \
       conda build --token $TOKEN --user cadquery -c conda-forge -c dlr-sc . && \
       cd ..
@@ -32,7 +32,7 @@ jobs:
     env:
       TOKEN: $(anaconda.TOKEN)
       
-  - script: |
+  - bash: |
       call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64 && set CC=cl && set CXX=cl && \
       cd oce-0.18.3 && \
       conda build --token %TOKEN% --user cadquery -c conda-forge -c dlr-sc . && \
@@ -57,10 +57,10 @@ jobs:
       packageSpecs: conda-build=3.0.22 conda-verify libarchive python=${{ parameters.py_maj }}.${{ parameters.py_min }} anaconda-client
       installOptions: --channel conda-forge
   
-  - script: conda info && conda list
+  - bash: conda info && conda list
     displayName: 'Conda info'  
        
-  - script: |
+  - bash: |
       cd pythonocc && \
       conda build --token $TOKEN --user cadquery -c cadquery -c conda-forge -c dlr-sc . && \
       cd ..
@@ -70,7 +70,7 @@ jobs:
     env:
       TOKEN: $(anaconda.TOKEN)
       
-  - script: |
+  - bash: |
       call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64 && set CC=cl && set CXX=cl  && \
       cd pythonocc && \
       conda build --token %TOKEN% --user cadquery -c cadquery -c conda-forge -c dlr-sc . && \
@@ -95,10 +95,10 @@ jobs:
       packageSpecs: conda-build=3.0.22 conda-verify libarchive python=${{ parameters.py_maj }}.${{ parameters.py_min }} anaconda-client
       installOptions: --channel conda-forge
   
-  - script: conda info && conda list
+  - bash: conda info && conda list
     displayName: 'Conda info'  
        
-  - script: |
+  - bash: |
       cd freeimageplus && \
       conda build --token $TOKEN --user cadquery -c cadquery -c conda-forge . && \
       cd ..
@@ -108,7 +108,7 @@ jobs:
     env:
       TOKEN: $(anaconda.TOKEN)
       
-  - script: |
+  - bash: |
       call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64 && set CC=cl && set CXX=cl && \
       cd freeimageplus && \
       conda build --token %TOKEN% --user cadquery -c cadquery -c conda-forge . &&
