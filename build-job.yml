@@ -80,3 +80,41 @@ jobs:
     condition: eq( variables['Agent.OS'], 'Windows_NT' )
     env:
       TOKEN: $(anaconda.TOKEN)
+
+- job: ${{ parameters.name }}_freeimageplus_${{ parameters.py_maj }}_${{ parameters.py_min }}
+  timeoutInMinutes: 240
+  
+  pool: 
+    vmImage: ${{ parameters.vmImage }}
+    
+  steps:
+  - task: CondaEnvironment@1
+    inputs:
+      createCustomEnvironment: False
+      updateConda: False
+      packageSpecs: conda-build=3.0.22 conda-verify libarchive python=${{ parameters.py_maj }}.${{ parameters.py_min }} anaconda-client
+      installOptions: --channel conda-forge
+  
+  - script: conda info && conda list
+    displayName: 'Conda info'  
+       
+  - script: |
+      cd freeimageplus
+      conda build --token $TOKEN --user cadquery -c cadquery -c conda-forge .
+      cd ..
+    displayName: 'PythonOCC'
+    failOnStderr: true
+    condition: ne( variables['Agent.OS'], 'Windows_NT' )
+    env:
+      TOKEN: $(anaconda.TOKEN)
+      
+  - script: |
+      call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64 && set CC=cl && set CXX=cl
+      cd freeimageplus
+      conda build --token %TOKEN% --user cadquery -c cadquery -c conda-forge .
+      cd ..
+    displayName: 'PythonOCC - Windows specific'
+    failOnStderr: true
+    condition: eq( variables['Agent.OS'], 'Windows_NT' )
+    env:
+      TOKEN: $(anaconda.TOKEN)
