@@ -5,7 +5,7 @@
 include Makefile.srcs
  
 # General configuration variables:
-CC_X86_64 = c++
+CC_X86_64 = cc
 CPP_X86_64 = c++ 
 
 COMPILERFLAGS = -mmacosx-version-min=10.6 -Os -fexceptions -fvisibility=hidden -DNO_LCMS -D__ANSI__ -DDISABLE_PERF_MEASUREMENT
