@@ -51,7 +51,7 @@ $(STATICLIB): $(MODULES_X86_64)
  
  
 $(SHAREDLIB): $(MODULES_X86_64)
-	$(CPP_X86_64) -arch x86_64 -dynamiclib $(LIBRARIES_X86_64) -o $@ $(MODULES_X86_64)
+	$(CPP_X86_64) -arch x86_64 -dynamiclib -stdlib=libc++ $(LIBRARIES_X86_64) -o $@ $(MODULES_X86_64)
  
 .c.o-x86_64:
 	$(CC_X86_64) $(CFLAGS_X86_64) -c $< -o $@
