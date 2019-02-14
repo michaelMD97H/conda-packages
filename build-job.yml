@@ -24,7 +24,7 @@ jobs:
   
   - bash: |
       cd oce-0.18.3 && \
-      conda build --token $TOKEN --user cadquery -c conda-forge -c dlr-sc . && \
+      conda build --token $TOKEN --user cadquery -c conda-forge . && \
       cd ..
     displayName: 'OCE'
     failOnStderr: false
@@ -35,7 +35,7 @@ jobs:
   - script: |
       call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64 && set CC=cl && set CXX=cl && ^
       cd oce-0.18.3 && ^
-      conda build --token %TOKEN% --user cadquery -c conda-forge -c dlr-sc . && ^
+      conda build --token %TOKEN% --user cadquery -c conda-forge . && ^
       cd ..
     displayName: 'OCE - Windows specific'
     failOnStderr: false
@@ -62,7 +62,7 @@ jobs:
        
   - bash: |
       cd pythonocc && \
-      conda build --token $TOKEN --user cadquery -c cadquery -c conda-forge -c dlr-sc . && \
+      conda build --token $TOKEN --user cadquery -c cadquery -c conda-forge . && \
       cd ..
     displayName: 'PythonOCC'
     failOnStderr: false
@@ -73,7 +73,7 @@ jobs:
   - script: |
       call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64 && set CC=cl && set CXX=cl  && ^
       cd pythonocc && ^
-      conda build --token %TOKEN% --user cadquery -c cadquery -c conda-forge -c dlr-sc . && ^
+      conda build --token %TOKEN% --user cadquery -c cadquery -c conda-forge . && ^
       cd ..
     displayName: 'PythonOCC - Windows specific'
     failOnStderr: false
