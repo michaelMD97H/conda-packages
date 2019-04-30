@@ -100,7 +100,8 @@ jobs:
        
   - bash: |
       cd freeimageplus && \
-      conda build --token $TOKEN --user cadquery -c cadquery -c conda-forge . && \
+      conda build --token $TOKEN --user cadquery --output-folder . -c cadquery -c conda-forge . && \
+      anaconda upload  --token $TOKEN --user cadquery *tar.bz2 && \
       cd ..
     displayName: 'FreeImagePlus'
     failOnStderr: false
