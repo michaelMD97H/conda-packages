@@ -15,8 +15,8 @@ jobs:
   - task: CondaEnvironment@1
     inputs:
       createCustomEnvironment: False
-      updateConda: False
-      packageSpecs: conda-build=3.0.22 conda-verify libarchive python=${{ parameters.py_maj }}.${{ parameters.py_min }} anaconda-client
+      updateConda: True
+      packageSpecs: conda-build conda-verify libarchive python=${{ parameters.py_maj }}.${{ parameters.py_min }} anaconda-client
       installOptions: --channel conda-forge
   
   - bash: conda config --set anaconda_upload yes && conda info && conda list
@@ -53,8 +53,8 @@ jobs:
   - task: CondaEnvironment@1
     inputs:
       createCustomEnvironment: False
-      updateConda: False
-      packageSpecs: conda-build=3.0.22 conda-verify libarchive python=${{ parameters.py_maj }}.${{ parameters.py_min }} anaconda-client
+      updateConda: True
+      packageSpecs: conda-build conda-verify libarchive python=${{ parameters.py_maj }}.${{ parameters.py_min }} anaconda-client
       installOptions: --channel conda-forge
   
   - bash: conda config --set anaconda_upload yes && conda info && conda list
@@ -91,8 +91,8 @@ jobs:
   - task: CondaEnvironment@1
     inputs:
       createCustomEnvironment: False
-      updateConda: False
-      packageSpecs: conda-build=3.0.22 conda-verify libarchive python=${{ parameters.py_maj }}.${{ parameters.py_min }} anaconda-client
+      updateConda: True
+      packageSpecs: conda-build conda-verify libarchive python=${{ parameters.py_maj }}.${{ parameters.py_min }} anaconda-client
       installOptions: --channel conda-forge
   
   - bash: conda config --set anaconda_upload yes && conda info && conda list
