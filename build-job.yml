@@ -19,8 +19,8 @@ jobs:
       packageSpecs: conda-build=3.0.22 conda-verify libarchive python=${{ parameters.py_maj }}.${{ parameters.py_min }} anaconda-client
       installOptions: --channel conda-forge
   
-  - bash: conda info && conda list
-    displayName: 'Conda info'
+  - bash: conda config --set anaconda_upload yes && conda info && conda list
+    displayName: 'Conda config and info'
   
   - bash: |
       cd oce-0.18.3 && \
@@ -57,8 +57,8 @@ jobs:
       packageSpecs: conda-build=3.0.22 conda-verify libarchive python=${{ parameters.py_maj }}.${{ parameters.py_min }} anaconda-client
       installOptions: --channel conda-forge
   
-  - bash: conda info && conda list
-    displayName: 'Conda info'  
+  - bash: conda config --set anaconda_upload yes && conda info && conda list
+    displayName: 'Conda config and info'
        
   - bash: |
       cd pythonocc && \
@@ -95,8 +95,8 @@ jobs:
       packageSpecs: conda-build=3.0.22 conda-verify libarchive python=${{ parameters.py_maj }}.${{ parameters.py_min }} anaconda-client
       installOptions: --channel conda-forge
   
-  - bash: conda info && conda list
-    displayName: 'Conda info'  
+  - bash: conda config --set anaconda_upload yes && conda info && conda list
+    displayName: 'Conda config and info'
        
   - bash: |
       cd freeimageplus && \
