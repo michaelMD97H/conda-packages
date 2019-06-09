@@ -1,0 +1,35 @@
+parameters:
+  name: 'Conda build job'  
+  vmImage: 'Ubuntu-16.04'
+  py_maj: '3'
+  py_min: '6'
+  location: 'conda'
+
+jobs:
+- job: ${{ parameters.name }}_oce_${{ parameters.py_maj }}_${{ parameters.py_min }}
+  timeoutInMinutes: 240
+  
+  pool: 
+    vmImage: ${{ parameters.vmImage }}
+    
+  steps:
+  - task: CondaEnvironment@1
+    inputs:
+      createCustomEnvironment: False
+      updateConda: True
+      packageSpecs: conda-build conda-verify libarchive python=${{ parameters.py_maj }}.${{ parameters.py_min }} anaconda-client
+      installOptions: --channel conda-forge
+  
+  - bash: conda config --set anaconda_upload yes && conda info && conda list
+    displayName: 'Conda config and info'
+    
+  - bash: |
+      cd ${{ parameters.location }} && \
+      conda build --token $TOKEN --user cadquery -c conda-forge -c cadquery . && \
+      cd ..
+    displayName: 'Run conda build'
+    failOnStderr: false
+    env:
+      PYTHON_VERSION: ${{ parameters.py_maj }}.${{ parameters.py_min }}
+      PACKAGE_VERSION: $(Build.SourceBranchName)
+      TOKEN: $(anaconda.TOKEN)
