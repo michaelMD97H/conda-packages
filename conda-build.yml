@@ -12,10 +12,7 @@ jobs:
   pool: 
     vmImage: ${{ parameters.vmImage }}
     
-  steps:
-  - ${{ if eq(parameters.vmImage, 'Ubuntu-16.04') }}:
-    - bash: printf 'yes\n' | sudo apt-get -q -y install ttf-mscorefonts-installer
-    
+  steps:    
   - task: CondaEnvironment@1
     inputs:
       createCustomEnvironment: False
