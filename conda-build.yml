@@ -14,7 +14,7 @@ jobs:
     
   steps:
   - ${{ if eq(parameters.vmImage, 'Ubuntu-16.04') }}:
-    - bash: find /usr/share/fonts/truetype && cat /etc/fonts/fonts.conf
+    - bash: find /usr/share/fonts/truetype && cat /etc/fonts/fonts.conf && fc-list && ls /etc/fonts/conf.d
     
   - task: CondaEnvironment@1
     inputs:
