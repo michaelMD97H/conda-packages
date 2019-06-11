@@ -14,7 +14,7 @@ jobs:
     
   steps:
   - ${{ if eq(parameters.vmImage, 'Ubuntu-16.04') }}:
-    - bash: sudo apt-get -q -y install gsfonts xfonts-utils && sudo mkfontdir /usr/share/fonts/X11/Type1/ && mkfontscale /usr/share/fonts/X11/Type1/
+    - bash: sudo apt-get -q -y install gsfonts xfonts-utils && sudo mkfontdir /usr/share/fonts/type1/gsfonts/ && mkfontscale /usr/share/fonts/type1/gsfonts/
     
   - task: CondaEnvironment@1
     inputs:
