@@ -1,5 +1,5 @@
 parameters:
-  name: 'Conda build job'  
+  name: 'Conda build job'
   vmImage: 'Ubuntu-16.04'
   py_maj: '3'
   py_min: '6'
@@ -9,12 +9,12 @@ jobs:
 - job: ${{ parameters.name }}_${{ parameters.py_maj }}_${{ parameters.py_min }}
   timeoutInMinutes: 240
   
-  pool: 
+  pool:
     vmImage: ${{ parameters.vmImage }}
     
   steps:
   - ${{ if eq(parameters.vmImage, 'Ubuntu-16.04') }}:
-    - bash: find /usr/share/fonts/truetype && cat /etc/fonts/fonts.conf && fc-list && ls /etc/fonts/conf.d && fc-match Sans
+    - bash: sudo apt-get -q -y install gsfonts
     
   - task: CondaEnvironment@1
     inputs:
