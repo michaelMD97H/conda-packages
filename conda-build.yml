@@ -12,15 +12,12 @@ jobs:
   pool:
     vmImage: ${{ parameters.vmImage }}
     
-  steps:
+  steps: # this step is needed for OCC to find fonts
   - ${{ if eq(parameters.vmImage, 'Ubuntu-16.04') }}:
     - bash: |
         sudo apt-get -q -y install gsfonts xfonts-utils && \
         sudo mkfontscale /usr/share/fonts/type1/gsfonts/ && \
-        sudo mkfontdir /usr/share/fonts/type1/gsfonts/ && \
-        sudo chmod a+r /usr/share/fonts/type1/gsfonts/fonts.dir && \
-        sudo chmod a+r /usr/share/fonts/type1/gsfonts/fonts.scale && \
-        cat /usr/share/fonts/type1/gsfonts/fonts.dir
+        sudo mkfontdir /usr/share/fonts/type1/gsfonts/
     
   - task: CondaEnvironment@1
     inputs:
