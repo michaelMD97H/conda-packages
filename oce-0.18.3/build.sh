@@ -10,7 +10,7 @@ cd build
 # Configure step
 cmake -G Ninja -DCMAKE_INSTALL_PREFIX=$PREFIX \
  -DCMAKE_CXX_FLAGS=-O1 \
- -DCMAKE_BUILD_TYPE=None \
+ -DCMAKE_BUILD_TYPE=RelWithDebInfo \
  -DOCE_TESTING=OFF \
  -DOCE_USE_PCH=OFF \
  -DOCE_COPY_HEADERS_BUILD=ON \
@@ -38,7 +38,7 @@ ninja install > installed_files.txt
 #make install > installed_files.log  # to reduce the number of lines to the console
 
 if [ `uname` != Darwin ]; then
-    python $RECIPE_DIR/remove-system-libs.py $PREFIX/lib/oce-0.18/OCE-libraries-none.cmake
+    python $RECIPE_DIR/remove-system-libs.py $PREFIX/lib/oce-0.18/OCE-libraries-relwithdebinfo.cmake
 else
-    python $RECIPE_DIR/remove-system-libs.py $PREFIX/OCE.framework/Versions/0.18/Resources/OCE-libraries-none.cmake
+    python $RECIPE_DIR/remove-system-libs.py $PREFIX/OCE.framework/Versions/0.18/Resources/OCE-libraries-relwithdebinfo.cmake
 fi
