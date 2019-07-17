@@ -15,7 +15,7 @@ jobs:
   - task: CondaEnvironment@1
     inputs:
       createCustomEnvironment: False
-      updateConda: True
+      updateConda: False
       packageSpecs: conda-build conda-verify libarchive python=${{ parameters.py_maj }}.${{ parameters.py_min }} anaconda-client
       installOptions: --channel conda-forge
   
@@ -53,7 +53,7 @@ jobs:
   - task: CondaEnvironment@1
     inputs:
       createCustomEnvironment: False
-      updateConda: True
+      updateConda: False
       packageSpecs: conda-build conda-verify libarchive python=${{ parameters.py_maj }}.${{ parameters.py_min }} anaconda-client
       installOptions: --channel conda-forge
   
@@ -91,7 +91,7 @@ jobs:
   - task: CondaEnvironment@1
     inputs:
       createCustomEnvironment: False
-      updateConda: True
+      updateConda: False
       packageSpecs: conda-build conda-verify libarchive python=${{ parameters.py_maj }}.${{ parameters.py_min }} anaconda-client
       installOptions: --channel conda-forge
   
