@@ -19,7 +19,7 @@ jobs:
         sudo mkfontscale /usr/share/fonts/type1/gsfonts/ && \
         sudo mkfontdir /usr/share/fonts/type1/gsfonts/
   
-  - ${{ if eq(Agent.OS, 'Darwin') }}:
+  - ${{ if eq(variables.Agent.OS, 'Darwin') }}:
     - bash: sudo chown -R $USER $CONDA
       displayName: MacOS ownership workaround
     
