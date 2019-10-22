@@ -4,7 +4,7 @@ trigger:
 jobs:
 - template: conda-build.yml
   parameters:
-    name: Linux-freeimageplus
+    name: Linux_freeimageplus
     vmImage: 'ubuntu-16.04'
     py_maj: 3
     py_min: 6
@@ -12,7 +12,7 @@ jobs:
 
 - template:  conda-build.yml
   parameters:
-    name: macOS-freeimageplus
+    name: macOS_freeimageplus
     vmImage: 'macOS-10.13'
     py_maj: 3
     py_min: 6
@@ -20,7 +20,7 @@ jobs:
 
 - template:  conda-build.yml
   parameters:
-    name: Windows-freeimageplus
+    name: Windows_freeimageplus
     vmImage: 'vs2017-win2016'
     py_maj: 3
     py_min: 6
@@ -28,7 +28,7 @@ jobs:
     
 - template: conda-build.yml
   parameters:
-    name: Linux-oce
+    name: Linux_oce
     vmImage: 'ubuntu-16.04'
     py_maj: 3
     py_min: 6
@@ -36,7 +36,7 @@ jobs:
 
 - template:  conda-build.yml
   parameters:
-    name: macOS-oce
+    name: macOS_oce
     vmImage: 'macOS-10.13'
     py_maj: 3
     py_min: 6
@@ -44,7 +44,7 @@ jobs:
 
 - template:  conda-build.yml
   parameters:
-    name: Windows-oce
+    name: Windows_oce
     vmImage: 'vs2017-win2016'
     py_maj: 3
     py_min: 6
@@ -52,7 +52,7 @@ jobs:
 
 - template: conda-build.yml
   parameters:
-    name: Linux-pythonocc36
+    name: Linux_pythonocc36
     vmImage: 'ubuntu-16.04'
     py_maj: 3
     py_min: 6
@@ -60,7 +60,7 @@ jobs:
 
 - template:  conda-build.yml
   parameters:
-    name: macOS-pythonocc36
+    name: macOS_pythonocc36
     vmImage: 'macOS-10.13'
     py_maj: 3
     py_min: 6
@@ -68,7 +68,7 @@ jobs:
 
 - template:  conda-build.yml
   parameters:
-    name: Windows-pythonocc36
+    name: Windows_pythonocc36
     vmImage: 'vs2017-win2016'
     py_maj: 3
     py_min: 6
@@ -77,7 +77,7 @@ jobs:
 
 - template: conda-build.yml
   parameters:
-    name: Linux-pythonocc37
+    name: Linux_pythonocc37
     vmImage: 'ubuntu-16.04'
     py_maj: 3
     py_min: 7
@@ -85,7 +85,7 @@ jobs:
 
 - template:  conda-build.yml
   parameters:
-    name: macOS-pythonocc37
+    name: macOS_pythonocc37
     vmImage: 'macOS-10.13'
     py_maj: 3
     py_min: 7
@@ -93,7 +93,7 @@ jobs:
 
 - template:  conda-build.yml
   parameters:
-    name: Windows-pythonocc37
+    name: Windows_pythonocc37
     vmImage: 'vs2017-win2016'
     py_maj: 3
     py_min: 7
