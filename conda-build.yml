@@ -12,28 +12,36 @@ jobs:
   pool:
     vmImage: ${{ parameters.vmImage }}
     
-  steps: # this step is needed for OCC to find fonts
+  steps: 
+  
+  #activate conda
+  - ${{ if or(contains(parameters.vmImage, 'macOS'),contains(parameters.vmImage, 'Ubuntu')) }}:
+    - bash: echo "##vso[task.prependpath]$CONDA/bin"
+      displayName: 'Add conda to PATH'
+  - ${{ if contains(parameters.vmImage, 'macOS') }}:
+    - powershell: Write-Host "##vso[task.prependpath]$env:CONDA\Scripts"
+      displayName: 'Add conda to PATH'
+  
+  # this step is needed for OCC to find fonts
   - ${{ if eq(parameters.vmImage, 'Ubuntu-16.04') }}:
     - bash: |
         sudo apt-get -q -y install gsfonts xfonts-utils && \
         sudo mkfontscale /usr/share/fonts/type1/gsfonts/ && \
         sudo mkfontdir /usr/share/fonts/type1/gsfonts/
   
+  # macOS ownership workaround
   - ${{ if contains(parameters.vmImage, 'macOS') }}:
     - bash: sudo chown -R $USER $CONDA
-      displayName: MacOS ownership workaround
-    
-  - task: CondaEnvironment@1
-    inputs:
-      createCustomEnvironment: False
-      updateConda: False
-      packageSpecs: conda-build conda-verify libarchive python=${{ parameters.py_maj }}.${{ parameters.py_min }} anaconda-client
-      installOptions: --channel conda-forge
+      displayName: 'MacOS ownership workaround'
+      
+  - bash: conda create --yes --quiet --name build_env conda-build conda-verify libarchive python=${{ parameters.py_maj }}.${{ parameters.py_min }} anaconda-client
+    displayName: Create Anaconda environment
   
   - bash: conda config --set anaconda_upload yes && conda info && conda list
     displayName: 'Conda config and info'
     
   - bash: |
+      source activate build_env && \
       cd ${{ parameters.location }} && \
       conda build --token $TOKEN --user cadquery -c conda-forge -c cadquery . && \
       cd ..
