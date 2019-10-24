@@ -13,7 +13,7 @@ else
 fi
 
 # Configure step
-cmake -G Ninja -DCMAKE_INSTALL_PREFIX=$PREFIX \
+cmake -G Ninja --debug-output -DCMAKE_INSTALL_PREFIX=$PREFIX \
  -DPYTHONOCC_BUILD_TYPE=MinSizeRel \
  -DCMAKE_PREFIX_PATH=$PREFIX \
  -DCMAKE_SYSTEM_PREFIX_PATH=$PREFIX \
