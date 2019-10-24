@@ -18,7 +18,7 @@ jobs:
   - ${{ if or(contains(parameters.vmImage, 'macOS'),contains(parameters.vmImage, 'Ubuntu')) }}:
     - bash: echo "##vso[task.prependpath]$CONDA/bin"
       displayName: 'Add conda to PATH'
-  - ${{ if contains(parameters.vmImage, 'macOS') }}:
+  - ${{ if contains(parameters.vmImage, 'win') }}:
     - powershell: Write-Host "##vso[task.prependpath]$env:CONDA\Scripts"
       displayName: 'Add conda to PATH'
   
