@@ -7,7 +7,7 @@ parameters:
 
 jobs:
 - job: ${{ parameters.name }}_${{ parameters.py_maj }}_${{ parameters.py_min }}
-  timeoutInMinutes: 240
+  timeoutInMinutes: 360
   
   pool:
     vmImage: ${{ parameters.vmImage }}
