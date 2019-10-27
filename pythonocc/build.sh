@@ -24,7 +24,7 @@ cmake -G Ninja --debug-output -DCMAKE_INSTALL_PREFIX=$PREFIX \
  -DPYTHONOCC_WRAP_SMESH=OFF \
  -DSMESH_INCLUDE_PATH:PATH=$PREFIX/include/smesh \
  -DSMESH_LIB_PATH:PATH=$PREFIX/lib \
- .
+ . || cat CMakeFiles/CMakeOutput.log
 # Build step
 # on linux travis, limit the number of concurrent jobs otherwise
 # gcc gets out of memory
