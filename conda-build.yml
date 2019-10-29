@@ -28,11 +28,17 @@ jobs:
         sudo apt-get -q -y install gsfonts xfonts-utils && \
         sudo mkfontscale /usr/share/fonts/type1/gsfonts/ && \
         sudo mkfontdir /usr/share/fonts/type1/gsfonts/
+        
+  # Ubunut install opengl items
+  - ${{ if contains(parameters.vmImage, 'Ubuntu') }}:
+    - bash: |
+        sudo apt-get -q -y install libglu1-mesa-dev freeglut3-dev mesa-common-dev
+      displayName: 'Install OpenGL headers'
   
   # macOS ownership workaround
   - ${{ if contains(parameters.vmImage, 'macOS') }}:
     - bash: sudo chown -R $USER $CONDA
-      displayName: 'MacOS ownership workaround'
+      displayName: 'MacOS ownership workaround'    	
       
   - bash: conda create --yes --quiet --name build_env conda-build conda-verify libarchive python=${{ parameters.py_maj }}.${{ parameters.py_min }} anaconda-client
     displayName: Create Anaconda environment
