@@ -2,6 +2,10 @@ mkdir build
 cd build
 dir "%LIBRARY_PREFIX%"\include\
 REM Configure step
+
+set CC=cl.exe
+set CXX=cl.exe
+
 cmake -G "Ninja" -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
  -DCMAKE_BUILD_TYPE=RelWithDebInfo ^
  -DOCE_NO_LIBRARY_VERSION=ON ^
