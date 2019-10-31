@@ -46,7 +46,7 @@ jobs:
         conda list
     displayName: 'Conda config and info'
       
-  - bash: conda create --yes --quiet --name build_env ripgrep conda-build=3.16.3 conda-verify libarchive python=${{ parameters.py_maj }}.${{ parameters.py_min }} anaconda-client
+  - bash: conda create --yes --quiet --name build_env conda-build=3.16.3 conda-verify libarchive python=${{ parameters.py_maj }}.${{ parameters.py_min }} anaconda-client
     displayName: Create Anaconda environment
     
   - bash: |
