@@ -4,6 +4,9 @@ cd build
 REM Remove dot from PY_VER for use in library name
 set MY_PY_VER=%PY_VER:.=%
 
+set CC=cl.exe
+set CXX=cl.exe
+
 REM Configure step
 cmake -G "Ninja" -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
  -DPYTHONOCC_BUILD_TYPE=RelWithDebInfo ^
@@ -17,12 +20,17 @@ cmake -G "Ninja" -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
  -DPYTHONOCC_WRAP_SMESH_NETGENPLUGIN=OFF ^
  ..
  
+if errorlevel 1 exit 1
+
 REM Build step 
 cmake --build . --config Release
+
+if errorlevel 1 exit 1
 
 REM Install step
 ninja install
 
+if errorlevel 1 exit 1
 
 REM copy the source
 REM cd ..
