@@ -1,6 +1,9 @@
 mkdir buildd
 cd buildd
 
+set CC=cl.exe
+set CXX=cl.exe
+
 REM Configure step
 cmake -G "Ninja" -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
  -DCMAKE_BUILD_TYPE=Release ^
