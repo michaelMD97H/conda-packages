@@ -4,6 +4,7 @@ parameters:
   py_maj: '3'
   py_min: '6'
   location: 'conda'
+  conda_bld: '3.16.3'
 
 jobs:
 - job: ${{ parameters.name }}_${{ parameters.py_maj }}_${{ parameters.py_min }}
@@ -46,7 +47,7 @@ jobs:
         conda list
     displayName: 'Conda config and info'
       
-  - bash: conda create --yes --quiet --name build_env conda-build=3.16.3 conda-verify libarchive python=${{ parameters.py_maj }}.${{ parameters.py_min }} anaconda-client
+  - bash: conda create --yes --quiet --name build_env conda-build=${{ parameters.conda_bld }} conda-verify libarchive python=${{ parameters.py_maj }}.${{ parameters.py_min }} anaconda-client
     displayName: Create Anaconda environment
     
   - bash: |
