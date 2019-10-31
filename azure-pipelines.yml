@@ -25,6 +25,7 @@ jobs:
     py_maj: 3
     py_min: 6
     location: freeimageplus
+    conda_bld: 3.18
     
 - template: conda-build.yml
   parameters:
@@ -49,6 +50,7 @@ jobs:
     py_maj: 3
     py_min: 6
     location: oce-0.18.3
+    conda_bld: 3.18
 
 - template: conda-build.yml
   parameters:
@@ -73,7 +75,7 @@ jobs:
     py_maj: 3
     py_min: 6
     location: pythonocc
-    
+    conda_bld: 3.18
 
 - template: conda-build.yml
   parameters:
@@ -98,3 +100,4 @@ jobs:
     py_maj: 3
     py_min: 7
     location: pythonocc
+    conda_bld: 3.18
