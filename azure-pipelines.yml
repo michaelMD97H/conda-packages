@@ -50,7 +50,7 @@ jobs:
     py_maj: 3
     py_min: 6
     location: oce-0.18.3
-    conda_bld: 3.18
+    conda_bld: 3.17
 
 - template: conda-build.yml
   parameters:
@@ -100,4 +100,4 @@ jobs:
     py_maj: 3
     py_min: 7
     location: pythonocc
-    conda_bld: 3.15
+    conda_bld: 3.17
