@@ -41,9 +41,9 @@ test:
     - wxpython          [py27]
     - pyside            [py27]
     - pyqt >=5
-  commands:
-    - echo -e "from contextlib import suppress; from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeBox \nwith suppress(Exception): BRepPrimAPI_MakeBox(0,0,0)" | python        #  [osx]       
-
+  imports:
+    - OCC.Core
+    
 about:
   home: https://github.com/tpaviot/pythonocc-core
   license: LGPL
