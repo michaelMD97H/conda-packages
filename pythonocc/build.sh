@@ -31,7 +31,7 @@ echo "CMAKE done"
 # Build step
 # on linux travis, limit the number of concurrent jobs otherwise
 # gcc gets out of memory
-ninja --verbose -j 6
+ninja --v -j 6
 ninja -j 6 install
 
 # fix rpaths
