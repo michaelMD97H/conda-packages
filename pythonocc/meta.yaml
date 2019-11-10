@@ -20,7 +20,6 @@ build:
 
 requirements:
   build:
-    - {{ compiler('cxx') }}
     - python
     - oce ==0.18.2
     - tbb ==2018_20171205
