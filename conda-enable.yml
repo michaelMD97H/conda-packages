@@ -1,15 +1,15 @@
 steps:
 
 #activate conda
-- ${{ if or(contains(parameters.vmImage, 'macOS'),contains(parameters.vmImage, 'Ubuntu')) }}:
+- ${{ if or(contains(Agent.OS, 'Darwin'),contains(Agent.OS, 'Linux')) }}:
   - bash: echo "##vso[task.prependpath]$CONDA/bin"
     displayName: 'Add conda to PATH'
-- ${{ if contains(parameters.vmImage, 'win') }}:
+- ${{ if contains(Agent.OS, 'Windows') }}:
   - powershell: Write-Host "##vso[task.prependpath]$env:CONDA\Scripts"
     displayName: 'Add conda to PATH'
 
 # macOS ownership workaround
-- ${{ if contains(parameters.vmImage, 'macOS') }}:
+- ${{ if contains(Agent.OS, 'Darwin') }}:
   - bash: sudo chown -R $USER $CONDA
     displayName: 'MacOS ownership workaround'
 
