@@ -1,0 +1,21 @@
+steps:
+
+#activate conda
+- ${{ if or(contains(parameters.vmImage, 'macOS'),contains(parameters.vmImage, 'Ubuntu')) }}:
+  - bash: echo "##vso[task.prependpath]$CONDA/bin"
+    displayName: 'Add conda to PATH'
+- ${{ if contains(parameters.vmImage, 'win') }}:
+  - powershell: Write-Host "##vso[task.prependpath]$env:CONDA\Scripts"
+    displayName: 'Add conda to PATH'
+
+# macOS ownership workaround
+- ${{ if contains(parameters.vmImage, 'macOS') }}:
+  - bash: sudo chown -R $USER $CONDA
+    displayName: 'MacOS ownership workaround'
+
+- bash: |
+      conda config --set anaconda_upload yes --set always_yes yes && \
+      conda info && \
+      conda list
+  displayName: 'Conda config and info'
+
