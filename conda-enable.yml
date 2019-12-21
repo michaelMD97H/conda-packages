@@ -1,5 +1,8 @@
 steps:
 
+- bash: echo ${{ variables.Agent.OS }}
+  displayName: 'Current OS value'
+
 #activate conda
 - ${{ if or(contains(variables.Agent.OS, 'Darwin'),contains(variables.Agent.OS, 'Linux')) }}:
   - bash: echo "##vso[task.prependpath]$CONDA/bin"
