@@ -38,8 +38,12 @@ jobs:
   
   # macOS ownership workaround
   - ${{ if contains(parameters.vmImage, 'macOS') }}:
-    - bash: sudo chown -R $USER $CONDA
-      displayName: 'MacOS ownership workaround'    	
+    - bash: |
+        sudo chown -R $USER $CONDA && \
+        curl -o MacOSX10.9.sdk.tar.xz -L https://github.com/phracker/MacOSX-SDKs/releases/download/10.13/MacOSX10.9.sdk.tar.xz && \
+        tar xf MacOSX10.9.sdk.tar.xz && \
+        sudo mv -v MacOSX10.9.sdk /opt/ 
+      displayName: 'MacOS ownership workaround + 10.9 SDK installation'    	
       
   - bash: |
         conda config --set anaconda_upload yes --set always_yes yes && \
