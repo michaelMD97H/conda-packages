@@ -35,8 +35,8 @@ ninja --v -j 6
 ninja -j 6 install
 
 # fix rpaths
-#if [ `uname` == Darwin ]; then
-#    for lib in `ls $SP_DIR/OCC/_*.so`; do
-#      install_name_tool -rpath $PREFIX/lib @loader_path/../../../ $lib
-#    done
-#fi
+if [ `uname` == Darwin ]; then
+    for lib in `ls $SP_DIR/OCC/_*.so`; do
+      install_name_tool -rpath $PREFIX/lib @loader_path/../../../ $lib
+    done
+fi
