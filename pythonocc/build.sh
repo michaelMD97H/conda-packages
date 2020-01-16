@@ -8,13 +8,15 @@ fi
 
 if [ $(uname) == Darwin ]; then
     PY_LIB="libpython${MY_PY_VER}.dylib"
-    sudo xcode-select -s /Applications/Xcode_9.4.1.app/Contents/Developer
+    # sudo xcode-select -s /Applications/Xcode_9.4.1.app/Contents/Developer
 else
     PY_LIB="libpython${MY_PY_VER}.so"
 fi
 
 # Configure step
-cmake -G Ninja -DCMAKE_INSTALL_PREFIX=$PREFIX \
+cmake -G Ninja \
+ -DCMAKE_OSX_SYSROOT=${CONDA_BUILD_SYSROOT}
+ -DCMAKE_INSTALL_PREFIX=$PREFIX \
  -DPYTHONOCC_BUILD_TYPE=MinSizeRel \
  -DCMAKE_PREFIX_PATH=$PREFIX \
  -DCMAKE_SYSTEM_PREFIX_PATH=$PREFIX \
