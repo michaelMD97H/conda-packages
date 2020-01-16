@@ -8,7 +8,7 @@ fi
 
 if [ $(uname) == Darwin ]; then
     PY_LIB="libpython${MY_PY_VER}.dylib"
-    sudo xcode-select -s /Applications/Xcode_9.4.1.app/Contents/Developer
+    # sudo xcode-select -s /Applications/Xcode_9.4.1.app/Contents/Developer
 else
     PY_LIB="libpython${MY_PY_VER}.so"
 fi
