@@ -61,6 +61,20 @@ jobs:
       cd ..
     displayName: 'Run conda build'
     failOnStderr: false
+    condition: ne(variables['Build.Reason'], 'PullRequest')
+    env:
+      PYTHON_VERSION: ${{ parameters.py_maj }}.${{ parameters.py_min }}
+      PACKAGE_VERSION: $(Build.SourceBranchName)
+      TOKEN: $(anaconda.TOKEN)
+    
+  - bash: |
+      source activate build_env && \
+      cd ${{ parameters.location }} && \
+      conda build -c conda-forge -c cadquery . && \
+      cd ..
+    displayName: 'Run conda build without upload'
+    failOnStderr: false
+    condition: eq(variables['Build.Reason'], 'PullRequest')
     env:
       PYTHON_VERSION: ${{ parameters.py_maj }}.${{ parameters.py_min }}
       PACKAGE_VERSION: $(Build.SourceBranchName)
