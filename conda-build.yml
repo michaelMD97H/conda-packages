@@ -51,7 +51,7 @@ jobs:
         conda list
     displayName: 'Conda config and info'
       
-  - bash: conda create --yes --quiet --name build_env conda-build=${{ parameters.conda_bld }} conda-verify libarchive python=${{ parameters.py_maj }}.${{ parameters.py_min }} anaconda-client
+  - bash: conda create --yes --quiet --name build_env -c conda-forge conda-build=${{ parameters.conda_bld }} conda-verify libarchive python=${{ parameters.py_maj }}.${{ parameters.py_min }} anaconda-client
     displayName: Create Anaconda environment
     
   - bash: |
