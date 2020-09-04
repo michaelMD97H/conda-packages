@@ -33,6 +33,7 @@ jobs:
   # Ubunut install opengl items
   - ${{ if contains(parameters.vmImage, 'Ubuntu') }}:
     - bash: |
+        sudo apt-get update && \
         sudo apt-get -q -y install libglu1-mesa-dev freeglut3-dev mesa-common-dev
       displayName: 'Install OpenGL headers'
   
