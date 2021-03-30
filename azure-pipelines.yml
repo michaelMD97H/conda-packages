@@ -1,5 +1,5 @@
 trigger:
-- master
+- none
 
 jobs:
 - template: conda-build.yml
