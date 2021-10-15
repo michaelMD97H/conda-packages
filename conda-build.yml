@@ -48,6 +48,7 @@ jobs:
       
   - bash: |
         conda config --set anaconda_upload yes --set always_yes yes && \
+        conda update -q conda && \
         conda info && \
         conda list
     displayName: 'Conda config and info'
