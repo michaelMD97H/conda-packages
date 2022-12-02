@@ -5,6 +5,7 @@ parameters:
   py_min: '6'
   location: 'conda'
   conda_bld: '3.16.3'
+  conda: '22.9.0'
 
 jobs:
 - job: ${{ parameters.name }}_${{ parameters.py_maj }}_${{ parameters.py_min }}
@@ -48,7 +49,7 @@ jobs:
       
   - bash: |
         conda config --set anaconda_upload yes --set always_yes yes && \
-        conda update -q conda && \
+        conda install -q conda=${{ parameters.conda }} && \
         conda info && \
         conda list
     displayName: 'Conda config and info'
