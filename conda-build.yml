@@ -58,7 +58,7 @@ jobs:
     displayName: Create Anaconda environment
     
   - bash: |
-      source activate build_env && \
+      conda activate build_env && \
       cd ${{ parameters.location }} && \
       conda build -c conda-forge -c cadquery --croot ${{ parameters.location }} . && \
       anaconda -v -t $TOKEN upload -u cadquery --force `conda build --output -c conda-forge -c cadquery .` && \
@@ -72,7 +72,7 @@ jobs:
       TOKEN: $(anaconda.TOKEN)
     
   - bash: |
-      source activate build_env && \
+      conda activate build_env && \
       cd ${{ parameters.location }} && \
       conda build -c conda-forge -c cadquery --croot ${{ parameters.location }} . && \
       cd ..
