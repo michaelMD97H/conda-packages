@@ -60,8 +60,8 @@ jobs:
   - bash: |
       source activate build_env && \
       cd ${{ parameters.location }} && \
-      conda build -c conda-forge -c cadquery . && \
-      anaconda -v -t $TOKEN upload -u cadquery --force `conda build --output -c conda-forge -c cadquery .` && \
+      conda run -n build_env conda build -c conda-forge -c cadquery . && \
+      conda run -n build_env anaconda -v -t $TOKEN upload -u cadquery --force `conda build --output -c conda-forge -c cadquery .` && \
       cd ..
     displayName: 'Run conda build'
     failOnStderr: false
