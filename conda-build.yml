@@ -58,7 +58,7 @@ jobs:
     displayName: Create Anaconda environment
     
   - bash: |
-      conda activate build_env && \
+      source activate build_env && \
       cd ${{ parameters.location }} && \
       conda build -c conda-forge -c cadquery --croot ${{ parameters.location }} . && \
       anaconda -v -t $TOKEN upload -u cadquery --force `conda build --output -c conda-forge -c cadquery .` && \
@@ -72,9 +72,8 @@ jobs:
       TOKEN: $(anaconda.TOKEN)
     
   - bash: |
-      conda activate build_env && \
       cd ${{ parameters.location }} && \
-      conda build -c conda-forge -c cadquery --croot ${{ parameters.location }} . && \
+      conda run -n build_env conda build -c conda-forge -c cadquery --croot ${{ parameters.location }} . && \
       cd ..
     displayName: 'Run conda build without upload'
     failOnStderr: false
