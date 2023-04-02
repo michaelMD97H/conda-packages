@@ -49,19 +49,19 @@ jobs:
       
   - bash: |
         conda config --set anaconda_upload yes --set always_yes yes && \
-        conda install -q conda=${{ parameters.conda }} && \
-        conda info && \
-        conda list
+        conda install -q conda=${{ parameters.conda }} mamba && \
+        mamba info && \
+        mamba list
     displayName: 'Conda config and info'
       
-  - bash: conda create --yes --quiet --name build_env -c conda-forge conda-build=${{ parameters.conda_bld }} conda-verify libarchive python=3.7 anaconda-client
+  - bash: mamba create --yes --quiet --name build_env -c conda-forge conda-build=${{ parameters.conda_bld }} conda-verify libarchive python=3.7 anaconda-client
     displayName: Create Anaconda environment
     
   - bash: |
       source activate build_env && \
       cd ${{ parameters.location }} && \
-      conda run -n build_env conda build -c conda-forge -c cadquery . && \
-      conda run -n build_env anaconda -v -t $TOKEN upload -u cadquery --force `conda build --output -c conda-forge -c cadquery .` && \
+      mamba run -n build_env conda build -c conda-forge -c cadquery . && \
+      mamba run -n build_env anaconda -v -t $TOKEN upload -u cadquery --force `conda build --output -c conda-forge -c cadquery .` && \
       cd ..
     displayName: 'Run conda build'
     failOnStderr: false
@@ -73,7 +73,7 @@ jobs:
     
   - bash: |
       cd ${{ parameters.location }} && \
-      conda run -n build_env conda build -c conda-forge -c cadquery . && \
+      mamba run -n build_env conda build -c conda-forge -c cadquery . && \
       cd ..
     displayName: 'Run conda build without upload'
     failOnStderr: false
