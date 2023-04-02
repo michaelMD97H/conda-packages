@@ -49,6 +49,7 @@ jobs:
       
   - bash: |
         conda config --set anaconda_upload yes --set always_yes yes --add channels conda-forge && \
+        conda update -q conda && \
         conda install -q conda-forge::mamba && \
         mamba info && \
         mamba list
