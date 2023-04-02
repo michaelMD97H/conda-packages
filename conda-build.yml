@@ -48,7 +48,8 @@ jobs:
       displayName: 'MacOS ownership workaround + 10.9 SDK installation'    	
       
   - bash: |
-        conda config --set anaconda_upload yes --set always_yes yes --add channels conda-forge && \
+        conda config --set anaconda_upload yes --set always_yes yes && \
+        conda --add channels conda-forge && \
         conda update -q conda && \
         conda install -q conda-forge::mamba && \
         mamba info && \
