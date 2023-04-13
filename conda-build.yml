@@ -61,7 +61,7 @@ jobs:
       source activate build_env && \
       cd ${{ parameters.location }} && \
       mamba run -n build_env conda mambabuild -c conda-forge -c cadquery . && \
-      full_path=$(mamba run -n build_env conda build --output -c conda-forge -c cadquery . ) && \
+      full_path=$(mamba run -n build_env conda mambabuild --output -c conda-forge -c cadquery . ) && \
       base_name=$(basename $full_path) && \
       mamba run -n build_env anaconda -v -t $TOKEN remove --force `echo $base_name | awk -F- '{print "cadquery/"$1"/"$2}'`  && \
       mamba run -n build_env anaconda -v -t $TOKEN upload -u cadquery --force $full_path && \
