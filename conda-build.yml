@@ -64,7 +64,7 @@ jobs:
       full_path=$(mamba run -n build_env conda build --output -c conda-forge -c cadquery --output-folder . . ) && \
       echo $full_path && \
       base_name=$(basename $full_path) && \
-      split_name=$(IFS=-; tmp=($base_name); echo ${tmp[@]}) && \
+      split_name=($(IFS=-; tmp=($base_name); echo ${tmp[@]})) && \
       package_name=${split_name[@]: 0 : ${#split_name[@]} - 2} && \
       package_name=${package_name/ /-} && \
       version_name=${split_name[-2]} && \
