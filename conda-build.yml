@@ -64,8 +64,13 @@ jobs:
       full_path=$(mamba run -n build_env conda build --output -c conda-forge -c cadquery --output-folder . . ) && \
       echo $full_path && \
       base_name=$(basename $full_path) && \
+      IFS="-" && \
+      split_name=($base_name) && \
+      package_name=${split_name[@]: 0 : ${#split_name[@]} - 2} && \
+      package_name=${package_name/ /-} && \
+      version_name=${split_name[-2]} && \
       echo "Removing $base_name" && \
-      mamba run -n build_env anaconda -v -t $TOKEN remove --force `echo $base_name | awk -F- '{print "cadquery/"$1"/"$2}'`  && \
+      mamba run -n build_env anaconda -v -t $TOKEN remove --force "cadquery/$package_name/$version_name"  && \
       echo "Uploading $full_path" && \
       mamba run -n build_env anaconda -v -t $TOKEN upload -u cadquery --force $full_path && \
       cd ..
