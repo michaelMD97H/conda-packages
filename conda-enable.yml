@@ -19,4 +19,4 @@ steps:
       conda install -q conda-forge::mamba conda-forge::boa && \
       mamba info && \
       mamba list
-  displayName: 'Install mamba, boa; report config and info
+  displayName: 'Install mamba, boa; report config and info'
