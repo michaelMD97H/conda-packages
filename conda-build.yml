@@ -17,19 +17,20 @@ jobs:
   steps: 
   
   #activate conda
-  - ${{ if or(contains(parameters.vmImage, 'macOS'),contains(parameters.vmImage, 'Ubuntu')) }}:
-    - bash: echo "##vso[task.prependpath]$CONDA/bin"
-      displayName: 'Add conda to PATH'
-  - ${{ if contains(parameters.vmImage, 'win') }}:
-    - powershell: Write-Host "##vso[task.prependpath]$env:CONDA\Scripts"
-      displayName: 'Add conda to PATH'
+  - bash: echo "##vso[task.prependpath]$CONDA/bin"
+    condition: ne( variables['Agent.OS'], 'Windows_NT' )
+    displayName: 'Add conda to PATH'
+  - powershell: Write-Host "##vso[task.prependpath]$env:CONDA\Scripts"
+    condition: eq( variables['Agent.OS'], 'Windows_NT' )
+    displayName: 'Add conda to PATH - Windows'
   
   # this step is needed for OCC to find fonts
-  - ${{ if eq(parameters.vmImage, 'Ubuntu-16.04') }}:
-    - bash: |
-        sudo apt-get -q -y install gsfonts xfonts-utils && \
-        sudo mkfontscale /usr/share/fonts/type1/gsfonts/ && \
-        sudo mkfontdir /usr/share/fonts/type1/gsfonts/
+  - bash: |
+      sudo apt-get -q -y install gsfonts xfonts-utils && \
+      sudo mkfontscale /usr/share/fonts/type1/gsfonts/ && \
+      sudo mkfontdir /usr/share/fonts/type1/gsfonts/
+    condition: eq( variables['Agent.OS'], 'Linux' )
+    displayName: 'Help OCC find fonts'
         
   # Ubunut install opengl items
   - ${{ if contains(parameters.vmImage, 'Ubuntu') }}:
@@ -52,7 +53,7 @@ jobs:
         conda install -q conda-forge::mamba conda-forge::boa && \
         mamba info && \
         mamba list
-    displayName: 'Conda config and info'
+    displayName: 'Install mamba, boa; report config and info'
       
   - bash: mamba create --yes --quiet --name build_env -c conda-forge conda-build=${{ parameters.conda_bld }} conda-verify libarchive python=3.7 anaconda-client
     displayName: Create Anaconda environment
