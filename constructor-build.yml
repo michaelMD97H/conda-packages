@@ -1,5 +1,5 @@
 parameters:
-  name: 'Constructor installer build'
+  name: 'Constructor_installer_build'
   vmImage: 'ubuntu-latest'
 
 jobs:
