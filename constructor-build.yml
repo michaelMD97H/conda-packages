@@ -12,8 +12,13 @@ jobs:
   steps: 
   
   - template: conda-enable.yml
+  
   - bash: mamba install conda-forge::constructor
+    displayName: 'Install constructor'
+
   - bash: mkdir out && cd out && constructor ../conda
+    displayName: 'Build'
+
   - publish:  out
     artifact: installer_${{ parameters.vmImage }}
   
