@@ -1,24 +1,22 @@
-parameters:
-  vmImage: 'Ubuntu-16.04'
-
 steps:
 
 #activate conda
-- ${{ if or(contains(parameters.vmImage, 'macOS'),contains(parameters.vmImage, 'Ubuntu')) }}:
-  - bash: echo "##vso[task.prependpath]$CONDA/bin"
-    displayName: 'Add conda to PATH'
-- ${{ if contains(parameters.vmImage, 'win') }}:
-  - powershell: Write-Host "##vso[task.prependpath]$env:CONDA\Scripts"
-    displayName: 'Add conda to PATH'
+- bash: echo "##vso[task.prependpath]$CONDA/bin"
+  condition: ne( variables['Agent.OS'], 'Windows_NT' )
+  displayName: 'Add conda to PATH'
+- powershell: Write-Host "##vso[task.prependpath]$env:CONDA\Scripts"
+  condition: eq( variables['Agent.OS'], 'Windows_NT' )
+  displayName: 'Add conda to PATH - Windows'
 
 # macOS ownership workaround
-- ${{ if contains(parameters.vmImage, 'macOS') }}:
-  - bash: sudo chown -R $USER $CONDA
-    displayName: 'MacOS ownership workaround'
+- bash: sudo chown -R $USER $CONDA
+  displayName: 'MacOS ownership workaround'
+  condition: eq( variables['Agent.OS'], 'Darwin' )
 
+# install mamba
 - bash: |
       conda config --set anaconda_upload yes --set always_yes yes && \
-      conda info && \
-      conda list
-  displayName: 'Conda config and info'
-
+      conda install -q conda-forge::mamba conda-forge::boa && \
+      mamba info && \
+      mamba list
+  displayName: 'Install mamba, boa; report config and info
