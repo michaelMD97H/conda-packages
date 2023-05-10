@@ -13,7 +13,7 @@ jobs:
   
   - template: conda-enable.yml
   
-  - bash: mamba install conda-forge::constructor
+  - bash: mamba install -c conda-forge conda-forge::libarchive conda-forge::constructor
     displayName: 'Install constructor'
 
   - bash: mkdir out && cd out && constructor ../conda
