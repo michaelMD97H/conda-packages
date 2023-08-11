@@ -16,7 +16,7 @@ steps:
 # install mamba
 - bash: |
       conda config --set anaconda_upload yes --set always_yes yes && \
-      conda install -q conda-forge::mamba=1 conda-forge::boa conda-forge::libarchive conda-forge::conda-devenv && \
+      conda install -q conda=23.7.0 conda-forge::mamba=1 conda-forge::boa conda-forge::libarchive conda-forge::conda-devenv && \
       mamba info && \
       mamba list
   displayName: 'Install mamba, boa; report config and info'
