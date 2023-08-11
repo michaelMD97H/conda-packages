@@ -39,7 +39,6 @@ jobs:
     displayName: Create Anaconda environment
     
   - bash: |
-      source activate build_env && \
       cd ${{ parameters.location }} && \
       mamba run -n build_env conda mambabuild -c conda-forge -c cadquery --output-folder . . && \
       full_path=$(mamba run -n build_env conda build --output -c conda-forge -c cadquery --output-folder . . ) && \
