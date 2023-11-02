@@ -15,7 +15,8 @@ steps:
 
 # install mamba
 - bash: |
-      conda config --set anaconda_upload yes --set always_yes yes --add channels conda-forge && \
+      conda config --set anaconda_upload yes --set always_yes yes && \
+      conda config --add channels conda-forge && \
       conda install -c conda-forge -q mamba conda-devenv libsolv && \
       mamba info && \
       mamba list
