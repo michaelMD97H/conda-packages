@@ -1,20 +1,10 @@
 steps:
 
-#donwload and install conda
-- bash: |
-    curl -fsSLo Miniforge.exe https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Windows-x86_64.exe && \
-    ./Miniforge.exe /InstallationType=JustMe /RegisterPython=0 /S /D=_miniconda
-  condition: eq( variables['Agent.OS'], 'Windows_NT' )
-
-- bash: |
-     curl -sL https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh > miniconda.sh && \
-     bash miniconda.sh -b -p _miniconda
-    
 #activate conda
-- bash: echo "##vso[task.prependpath]_miniconda/bin"
+- bash: echo "##vso[task.prependpath]$CONDA/bin"
   condition: ne( variables['Agent.OS'], 'Windows_NT' )
   displayName: 'Add conda to PATH'
-- powershell: Write-Host "##vso[task.prependpath]_miniconda\Scripts"
+- powershell: Write-Host "##vso[task.prependpath]$env:CONDA\Scripts"
   condition: eq( variables['Agent.OS'], 'Windows_NT' )
   displayName: 'Add conda to PATH - Windows'
 
@@ -26,7 +16,8 @@ steps:
 # install mamba
 - bash: |
       conda config --set anaconda_upload yes --set always_yes yes --set solver libmamba && \
-      mamba install -c conda-forge conda-devenv libsolv conda-libmamba-solver && \
+      conda config --add channels conda-forge && \
+      conda install -c conda-forge -q mamba conda-devenv libsolv conda-libmamba-solver && \
       mamba info && \
       mamba list
   displayName: 'Install mamba, boa; report config and info'
