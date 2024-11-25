@@ -1,0 +1,56 @@
+{% set name = "netgen" %}
+{% set version = "6.2.2405" %}
+{% set sha256 = "b554b6f7eb36feac7d6f5ee33cd520403709af579ab982f07e31a2c579d93a66" %}
+
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  git_url: https://github.com/CadQuery/netgen.git
+
+build:
+  number: 2
+
+requirements:
+  build:
+    - {{ compiler('cxx') }}
+    - {{ stdlib("c") }}                      # [not win]
+    - python                                 # [build_platform != target_platform]
+    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
+    - ninja
+    - cmake
+  host:
+    - libgl-devel                            # [linux]
+    - pybind11 2.12
+    - pybind11-abi 4
+    - pybind11-stubgen                       # [build_platform != target_platform]
+    - libgl-devel                            # [linux]
+    - occt 7.7.2
+    - python
+    - zlib
+    - ocp
+  run:
+    - python
+    - ocp
+
+test:
+  imports:
+    - netgen
+    - pyngcore
+
+about:
+  home: https://sourceforge.net/projects/netgen-mesher/
+  license: LGPL-2.1-or-later
+  license_family: LGPL
+  license_file: LICENSE
+  summary: this is netgen
+  description: NETGEN is an automatic 3d tetrahedral mesh generator. It accepts input from constructive solid geometry (CSG) or boundary representation (BRep) from STL file format. The connection to a geometry kernel allows the handling of IGES and STEP files. NETGEN contains modules for mesh optimization and hierarchical
+    mesh refinement. Netgen is open source based on the LGPL license. It is available for Unix/Linux and Windows.
+  doc_url: http://www.hpfem.jku.at/netgen/
+  dev_url: https://sourceforge.net/projects/netgen-mesher/
+
+extra:
+  recipe-maintainers:
+    - looooo
