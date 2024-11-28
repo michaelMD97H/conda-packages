@@ -13,7 +13,7 @@ jobs:
 - template: conda-build.yml
   parameters:
     name: win_netgen
-    vmImage: 'windows-2019'
+    vmImage: 'windows-2022'
     py_maj: 3
     py_min: 12
     location: netgen
