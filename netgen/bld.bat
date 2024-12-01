@@ -18,8 +18,5 @@ cmake -G "Visual Studio 16 2019" -B build ^
 
 if errorlevel 1 exit 1
 
-cmake --build build
-if errorlevel 1 exit 1
-
-cmake --install build
+cmake --build build --target install
 if errorlevel 1 exit 1
