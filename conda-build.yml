@@ -64,7 +64,7 @@ jobs:
   - script: |
       cd ${{ parameters.location }} && ^
       call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64 && set CC=cl && set CXX=cl && ^
-      bash mamba run -n build_env conda mambabuild -c conda-forge -c cadquery --output-folder . . && ^
+      mamba run -n build_env conda mambabuild -c conda-forge -c cadquery --croot c:/ --output-folder . . && ^
       cd ..
     displayName: 'Run conda build'
     failOnStderr: false
