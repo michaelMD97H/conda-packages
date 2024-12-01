@@ -17,5 +17,9 @@ cmake -G "Visual Studio 16 2019" -B build ^
       -D BUILD_STUB_FILES:BOOL=OFF
 
 if errorlevel 1 exit 1
-ninja -C build install
+
+cmake --build build
+if errorlevel 1 exit 1
+
+cmake --install build
 if errorlevel 1 exit 1
