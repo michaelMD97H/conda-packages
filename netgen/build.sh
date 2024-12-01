@@ -21,5 +21,6 @@ cmake -G "Ninja" -B build \
       -D PREFER_SYSTEM_PYBIND11=ON \
       -D BUILD_STUB_FILES:BOOL=OFF
 
-ninja -C build install
+cmake --build build
 
+cmake --install build
