@@ -8,11 +8,6 @@ steps:
   condition: eq( variables['Agent.OS'], 'Windows_NT' )
   displayName: 'Add conda to PATH - Windows'
 
-# macOS ownership workaround
-- bash: sudo chown -R $USER $CONDA
-  displayName: 'MacOS ownership workaround'
-  condition: eq( variables['Agent.OS'], 'Darwin' )
-
 # install mamba
 - bash: |
       conda config --set anaconda_upload yes --set always_yes yes --set solver libmamba && \
