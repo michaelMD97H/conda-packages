@@ -1,5 +1,10 @@
 steps:
 
+# install conda for mac
+- bash: brew install miniforge
+  displayName: 'MacOS install miniforge'
+  condition: eq( variables['Agent.OS'], 'Darwin' )
+
 #activate conda
 - bash: echo "##vso[task.prependpath]$CONDA/bin"
   condition: ne( variables['Agent.OS'], 'Windows_NT' )
