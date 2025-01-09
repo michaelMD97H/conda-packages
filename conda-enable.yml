@@ -1,14 +1,19 @@
 steps:
 
 # install conda for mac
-- bash: brew install miniforge && ls /usr/local/Caskroom/miniforge/base && ls /usr/local/Caskroom/miniforge/
+- bash: brew install miniforge && ls /usr/local/Caskroom/miniforge/base/bin
   displayName: 'MacOS install miniforge'
   condition: eq( variables['Agent.OS'], 'Darwin' )
 
 #activate conda
+- bash: echo "##vso[task.prependpath]/usr/local/Caskroom/miniforge/base/bin"
+  condition: eq( variables['Agent.OS'], 'Darwin' )
+  displayName: 'Add conda to PATH - OSX'
+
 - bash: echo "##vso[task.prependpath]$CONDA/bin"
-  condition: ne( variables['Agent.OS'], 'Windows_NT' )
-  displayName: 'Add conda to PATH'
+  condition: eq( variables['Agent.OS'], 'Linux' )
+  displayName: 'Add conda to PATH - Linux'
+
 - powershell: Write-Host "##vso[task.prependpath]$env:CONDA\Scripts"
   condition: eq( variables['Agent.OS'], 'Windows_NT' )
   displayName: 'Add conda to PATH - Windows'
