@@ -1,7 +1,7 @@
 steps:
 
 # install conda for mac
-- bash: brew install miniforge
+- bash: brew install miniforge && ls /usr/local/Caskroom/miniforge/base && ls /usr/local/Caskroom/miniforge/
   displayName: 'MacOS install miniforge'
   condition: eq( variables['Agent.OS'], 'Darwin' )
 
