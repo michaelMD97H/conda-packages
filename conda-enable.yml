@@ -22,7 +22,7 @@ steps:
 - bash: |
       conda config --set anaconda_upload yes --set always_yes yes --set solver libmamba && \
       conda config --add channels conda-forge && \
-      conda install -c conda-forge -q mamba=1.5 conda-devenv libsolv conda-libmamba-solver && \
+      conda install -c conda-forge -q mamba conda-devenv libsolv conda-libmamba-solver && \
       mamba info && \
       mamba list
   displayName: 'Install mamba, boa; report config and info'
