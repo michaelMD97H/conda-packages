@@ -35,13 +35,13 @@ jobs:
     parameters:
       vmImage: ${{ parameters.vmImage }}
       
-  - bash: mamba create --yes --quiet --name build_env -c conda-forge conda-build boa conda-verify libarchive python=3.12 anaconda-client
+  - bash: micromamba create --yes --quiet --name build_env -c conda-forge conda-build boa conda-verify libarchive python=3.12 anaconda-client
     displayName: Create Anaconda environment
     
   - bash: |
       cd ${{ parameters.location }} && \
-      mamba run -n build_env conda mambabuild -c conda-forge -c cadquery --output-folder . . && \
-      full_path=$(mamba run -n build_env conda build --output -c conda-forge -c cadquery --output-folder . . ) && \
+      micromamba run -n build_env conda mambabuild -c conda-forge -c cadquery --output-folder . . && \
+      full_path=$(micromamba run -n build_env conda build --output -c conda-forge -c cadquery --output-folder . . ) && \
       echo $full_path && \
       base_name=$(basename $full_path) && \
       split_name=($(IFS=-; tmp=($base_name); echo ${tmp[@]})) && \
@@ -49,9 +49,9 @@ jobs:
       package_name=${package_name/ /-} && \
       version_name=${split_name[-2]} && \
       echo "Removing $base_name" && \
-      mamba run -n build_env anaconda -v -t $TOKEN remove --force "cadquery/$package_name/$version_name"  && \
+      micromamba run -n build_env anaconda -v -t $TOKEN remove --force "cadquery/$package_name/$version_name"  && \
       echo "Uploading $full_path" && \
-      mamba run -n build_env anaconda -v -t $TOKEN upload -u cadquery --force $full_path && \
+      micromamba run -n build_env anaconda -v -t $TOKEN upload -u cadquery --force $full_path && \
       cd ..
     displayName: 'Run conda build'
     failOnStderr: false
@@ -63,7 +63,7 @@ jobs:
     
   - bash: |
       cd ${{ parameters.location }} && \
-      mamba run -n build_env conda mambabuild -c conda-forge -c cadquery . && \
+      micromamba run -n build_env conda mambabuild -c conda-forge -c cadquery . && \
       cd ..
     displayName: 'Run conda build without upload'
     failOnStderr: false
