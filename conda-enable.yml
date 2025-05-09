@@ -18,6 +18,10 @@ steps:
   condition: eq( variables['Agent.OS'], 'Windows_NT' )
   displayName: 'Add conda to PATH - Windows'
 
+- powershell: Write-Host "##vso[task.prependpath]$env:CONDA\condabin"
+  condition: eq( variables['Agent.OS'], 'Windows_NT' )
+  displayName: 'Add condabin to PATH - Windows'
+
 # install mamba
 - bash: |
       conda config --set anaconda_upload yes --set always_yes yes --set solver libmamba && \
