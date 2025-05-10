@@ -18,7 +18,7 @@ steps:
   condition: eq( variables['Agent.OS'], 'Windows_NT' )
   displayName: 'Add conda to PATH - Windows'
 
-- powershell: Write-Host "##vso[task.prependpath]$env:CONDA\condabin"
+- powershell: Write-Host "##vso[task.prependpath]$env:CONDA\Library\bin"
   condition: eq( variables['Agent.OS'], 'Windows_NT' )
   displayName: 'Add condabin to PATH - Windows'
 
