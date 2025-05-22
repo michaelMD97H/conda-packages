@@ -1,0 +1,25 @@
+import cadquery as cq
+
+# Parâmetros do bumper (ajuste conforme seu carregador)
+largura = 25.0            # largura externa do bumper (mm)
+comprimento = 40.0        # comprimento do bumper (mm)
+altura = 15.0             # altura total (mm)
+espessura_parede = 2.5    # espessura da parede (mm)
+encaixe_altura = 10.0     # profundidade do encaixe (mm)
+
+# Criar o corpo externo do bumper
+bumper = cq.Workplane("XY").box(comprimento, largura, altura)
+
+# Criar o encaixe interno onde entra o carregador
+encaixe = (
+    cq.Workplane("XY")
+    .workplane(offset=altura / 2 - encaixe_altura)
+    .rect(comprimento - 2 * espessura_parede, largura - 2 * espessura_parede)
+    .extrude(-encaixe_altura)
+)
+
+# Subtrair o encaixe do corpo
+modelo_final = bumper.cut(encaixe)
+
+# Exportar como STL
+cq.exporters.export(modelo_final, "bumper_beretta_m92_rossi.stl")
