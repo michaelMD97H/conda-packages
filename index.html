@@ -177,7 +177,7 @@
       const dados = Object.fromEntries(formData.entries());
       const pdfFile = formData.get("pdf");
       adicionarLinha(dados, pdfFile);
-      fetch("https://script.google.com/macros/s/AKfycbwGkmdt8vJQbo3iPRtBQ64EdaqW-SAP1GXIAGMZabdYxH6jrE_h8CMAKiNvHuCx9uzi/exec", {
+      fetch("https://script.google.com/macros/s/AKfycbx9hLzhWH4UYu5oU4DOc203LmG0C44Rmexa8Af3FsL3CbvovQu_mTJCGbzJV6tKyTgm/exec", {
         method: "POST",
         body: JSON.stringify(dados),
         headers: { "Content-Type": "application/json" }
@@ -276,6 +276,17 @@ function criarBotaoUpload(celula, linha) {
   };
   celula.appendChild(input);
 }
+
+window.onload = function () {
+  fetch("https://script.google.com/macros/s/AKfycbx9hLzhWH4UYu5oU4DOc203LmG0C44Rmexa8Af3FsL3CbvovQu_mTJCGbzJV6tKyTgm/exec")
+    .then(res => res.json())
+    .then(data => {
+      data.forEach(agendamento => {
+        adicionarLinha(agendamento);
+      });
+    });
+};
+
 </script>
 </body>
 </html>
