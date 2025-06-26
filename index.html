@@ -177,7 +177,7 @@
       const dados = Object.fromEntries(formData.entries());
       const pdfFile = formData.get("pdf");
       adicionarLinha(dados, pdfFile);
-      fetch("https://script.google.com/macros/s/AKfycbwjxfuWERFa67UbesZn9p-T3KYwmhQkNV6qLJQsn4y4wxbBI_baQ6B7vk5nebs_Sj4n/exec", { 
+      fetch("https://script.google.com/macros/s/AKfycbwGkmdt8vJQbo3iPRtBQ64EdaqW-SAP1GXIAGMZabdYxH6jrE_h8CMAKiNvHuCx9uzi/exec", {
         method: "POST",
         body: JSON.stringify(dados),
         headers: { "Content-Type": "application/json" }
