@@ -17,6 +17,7 @@
       padding: 10px 20px;
       display: flex;
       align-items: center;
+      justify-content: space-between;
     }
     header img {
       height: 80px;
@@ -57,13 +58,42 @@
     .admin-only {
       display: none;
     }
+    #config-icon {
+      cursor: pointer;
+      font-size: 20px;
+    }
+    #config-modal {
+      display: none;
+      position: fixed;
+      top: 50px;
+      right: 20px;
+      background: white;
+      border: 1px solid #ccc;
+      padding: 20px;
+      z-index: 1000;
+    }
   </style>
 </head>
 <body>
   <header>
-    <img src="ENDOCARDIO.png" alt="Endocardio Logo">
-    <h1>Agendamento de Cirurgias</h1>
+    <div style="display:flex; align-items:center;">
+      <img src="ENDOCARDIO.png" alt="Endocardio Logo">
+      <h1>Agendamento de Cirurgias</h1>
+    </div>
+    <div id="config-icon" onclick="toggleConfig()">⚙️</div>
   </header>
+
+  <div id="config-modal">
+    <h3>Configuração de Acesso</h3>
+    <label>Usuário administrador:</label>
+    <input type="text" id="adminUser" value="admin"><br>
+    <label>Senha:</label>
+    <input type="password" id="adminPass" value="1234"><br>
+    <label>Adicionar usuário para inclusão:</label>
+    <input type="text" id="addUser"><br>
+    <button onclick="salvarUsuario()">Salvar</button>
+  </div>
+
   <div class="container">
     <div class="form-section">
       <h2>Incluir Agendamento</h2>
@@ -111,11 +141,13 @@
     <div class="form-section">
       <h2>Upload de PDF - Checklist Pós</h2>
       <input type="file" accept="application/pdf" onchange="uploadPDF(this)">
+      <iframe id="pdfViewer" width="100%" height="500px" style="margin-top:10px; display:none;"></iframe>
     </div>
   </div>
 
   <script>
     const tabela = document.querySelector("#tabelaAgendamentos tbody");
+    const usuariosPermitidos = ["admin"];
 
     document.querySelector("#agendamentoForm").addEventListener("submit", function(e) {
       e.preventDefault();
@@ -147,12 +179,29 @@
     }
 
     function uploadPDF(input) {
-      if (input.files.length > 0) {
+      const file = input.files[0];
+      if (file) {
         const ultimaLinha = tabela.rows[tabela.rows.length - 1];
         if (ultimaLinha) {
           ultimaLinha.cells[7].innerText = "Realizado";
           ultimaLinha.className = "status-realizado";
         }
+        const pdfViewer = document.getElementById("pdfViewer");
+        pdfViewer.src = URL.createObjectURL(file);
+        pdfViewer.style.display = "block";
+      }
+    }
+
+    function toggleConfig() {
+      const modal = document.getElementById("config-modal");
+      modal.style.display = modal.style.display === "none" ? "block" : "none";
+    }
+
+    function salvarUsuario() {
+      const user = document.getElementById("addUser").value;
+      if (user && !usuariosPermitidos.includes(user)) {
+        usuariosPermitidos.push(user);
+        alert("Usuário autorizado para inclusão.");
       }
     }
   </script>
