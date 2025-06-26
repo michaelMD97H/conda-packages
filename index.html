@@ -1,44 +1,160 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Agendamentos - Endocardio</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Endocardio - Agendamentos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff5f5;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #d1002c;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+    }
+    header img {
+      height: 80px;
+      margin-right: 20px;
+    }
+    h1 {
+      margin: 0;
+    }
+    .container {
+      padding: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #ffd6db;
+    }
+    .status-agendado { background-color: #ffe0e0; }
+    .status-cancelado { background-color: #fdd; }
+    .status-realizado { background-color: #d0ffd0; }
+    .form-section {
+      background-color: #fff0f0;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .form-section input, .form-section select {
+      margin: 5px 0;
+      padding: 5px;
+      width: 100%;
+    }
+    .admin-only {
+      display: none;
+    }
+  </style>
 </head>
 <body>
   <header>
-    <img src="assets/endocardio.png" alt="Logo Endocardio" class="logo"/>
-    <h1>Agendamentos</h1>
+    <img src="ENDOCARDIO.png" alt="Endocardio Logo">
+    <h1>Agendamento de Cirurgias</h1>
   </header>
+  <div class="container">
+    <div class="form-section">
+      <h2>Incluir Agendamento</h2>
+      <form id="agendamentoForm">
+        <input type="text" placeholder="Paciente" name="paciente" required>
+        <input type="text" placeholder="Procedimento" name="procedimento" required>
+        <input type="text" placeholder="Médico" name="medico" required>
+        <input type="date" name="data" required>
+        <input type="text" placeholder="Convênio" name="convenio" required>
+        <input type="text" placeholder="Hospital" name="hospital" required>
+        <input type="text" placeholder="Instrumentador" name="instrumentador" required>
+        <select name="status">
+          <option value="Agendado">Agendado</option>
+          <option value="Cancelado">Cancelado</option>
+          <option value="Realizado">Realizado</option>
+        </select>
+        <button type="submit">Adicionar</button>
+      </form>
+    </div>
 
-  <form id="surgeryForm">
-    <input type="text" name="medico" required placeholder="Médico" />
-    <input type="text" name="paciente" required placeholder="Paciente" />
-    <input type="text" name="hospital" required placeholder="Hospital" />
-    <input type="text" name="procedimento" required placeholder="Procedimento" />
-    <input type="date" name="data" required />
-    <input type="text" name="convenio" placeholder="Convênio" />
-    <input type="text" name="fornecedor" placeholder="Fornecedor" />
-    <input type="text" name="instrumentador" placeholder="Instrumentador" />
-    <select name="status">
-      <option value="Agendado">Agendado</option>
-      <option value="Cancelado">Cancelado</option>
-      <option value="Realizado">Realizado</option>
-    </select>
-    <button type="submit">Adicionar</button>
-  </form>
+    <div class="admin-only">
+      <h2>Remover Agendamento</h2>
+      <button onclick="removerSelecionado()">Remover Selecionado</button>
+    </div>
 
-  <table id="agendaTable">
-    <thead>
-      <tr>
-        <th>Médico</th><th>Paciente</th><th>Hospital</th><th>Procedimento</th>
-        <th>Data</th><th>Convênio</th><th>Fornecedor</th><th>Instrumentador</th><th>Status</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+    <h2>Lista de Agendamentos</h2>
+    <table id="tabelaAgendamentos">
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Paciente</th>
+          <th>Procedimento</th>
+          <th>Médico</th>
+          <th>Convênio</th>
+          <th>Hospital</th>
+          <th>Instrumentador</th>
+          <th>Status</th>
+          <th>Selecionar</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
 
-  <script src="script.js"></script>
+    <div class="form-section">
+      <h2>Upload de PDF - Checklist Pós</h2>
+      <input type="file" accept="application/pdf" onchange="uploadPDF(this)">
+    </div>
+  </div>
+
+  <script>
+    const tabela = document.querySelector("#tabelaAgendamentos tbody");
+
+    document.querySelector("#agendamentoForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const dados = Object.fromEntries(new FormData(e.target).entries());
+      adicionarLinha(dados);
+      e.target.reset();
+    });
+
+    function adicionarLinha(dados) {
+      const linha = document.createElement("tr");
+      linha.className = `status-${dados.status.toLowerCase()}`;
+      linha.innerHTML = `
+        <td>${dados.data}</td>
+        <td>${dados.paciente}</td>
+        <td>${dados.procedimento}</td>
+        <td>${dados.medico}</td>
+        <td>${dados.convenio}</td>
+        <td>${dados.hospital}</td>
+        <td>${dados.instrumentador}</td>
+        <td>${dados.status}</td>
+        <td><input type="checkbox" class="selecionado"></td>
+      `;
+      tabela.appendChild(linha);
+    }
+
+    function removerSelecionado() {
+      const selecionados = document.querySelectorAll(".selecionado:checked");
+      selecionados.forEach(cb => cb.closest("tr").remove());
+    }
+
+    function uploadPDF(input) {
+      if (input.files.length > 0) {
+        const ultimaLinha = tabela.rows[tabela.rows.length - 1];
+        if (ultimaLinha) {
+          ultimaLinha.cells[7].innerText = "Realizado";
+          ultimaLinha.className = "status-realizado";
+        }
+      }
+    }
+  </script>
 </body>
 </html>
