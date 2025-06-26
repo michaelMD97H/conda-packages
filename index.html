@@ -1,12 +1,44 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Agendamento de Cirurgias</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agendamentos - Endocardio</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <img src="assets/endocardio.png" alt="Logo Endocardio" class="logo"/>
+    <h1>Agendamentos</h1>
+  </header>
+
+  <form id="surgeryForm">
+    <input type="text" name="medico" required placeholder="Médico" />
+    <input type="text" name="paciente" required placeholder="Paciente" />
+    <input type="text" name="hospital" required placeholder="Hospital" />
+    <input type="text" name="procedimento" required placeholder="Procedimento" />
+    <input type="date" name="data" required />
+    <input type="text" name="convenio" placeholder="Convênio" />
+    <input type="text" name="fornecedor" placeholder="Fornecedor" />
+    <input type="text" name="instrumentador" placeholder="Instrumentador" />
+    <select name="status">
+      <option value="Agendado">Agendado</option>
+      <option value="Cancelado">Cancelado</option>
+      <option value="Realizado">Realizado</option>
+    </select>
+    <button type="submit">Adicionar</button>
+  </form>
+
+  <table id="agendaTable">
+    <thead>
+      <tr>
+        <th>Médico</th><th>Paciente</th><th>Hospital</th><th>Procedimento</th>
+        <th>Data</th><th>Convênio</th><th>Fornecedor</th><th>Instrumentador</th><th>Status</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script src="script.js"></script>
+</body>
 </html>
