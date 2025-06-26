@@ -205,10 +205,11 @@
         <td>${dados.hospital}</td>
         <td>${dados.instrumentador}</td>
         <td>${statusCell}</td>
-        <td>${pdfHTML}</td>
+        <td><div class="upload-area"></div></td>
         <td><input type="checkbox" class="selecionado"></td>
       `;
       tabela.appendChild(linha);
+      criarBotaoUpload(linha.cells[8], linha);
     }
 
     function removerSelecionado() {
@@ -245,6 +246,31 @@
         alert("Usuário ou senha inválidos");
       }
     }
-  </script>
+  
+function criarBotaoUpload(celula, linha) {
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = "application/pdf";
+  input.onchange = function () {
+    const file = input.files[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      celula.innerHTML = `<div class='pdf-buttons'>
+        <button onclick="window.open('${url}', '_blank')">Visualizar</button>
+        <a href="${url}" download="${file.name}"><button>Download</button></a>
+      </div>`;
+      const statusCell = linha.cells[7];
+      if (statusCell.querySelector("select")) {
+        statusCell.querySelector("select").value = "Realizado";
+        linha.className = "status-realizado";
+      } else {
+        statusCell.innerText = "Realizado";
+        linha.className = "status-realizado";
+      }
+    }
+  };
+  celula.appendChild(input);
+}
+</script>
 </body>
 </html>
