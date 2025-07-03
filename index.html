@@ -2,291 +2,123 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Endocardio - Agendamentos</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CRM Representante Comercial</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #fff5f5;
-      margin: 0;
-      padding: 0;
-    }
-    #loginScreen {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-color: #d1002c;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-    }
-    #loginScreen input {
-      margin: 5px;
-      padding: 10px;
-      width: 200px;
-    }
-    header {
-      background-color: #d1002c;
-      color: white;
-      padding: 10px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    header img {
-      height: 80px;
-      margin-right: 20px;
-    }
-    h1 {
-      margin: 0;
-    }
-    .container {
-      padding: 20px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 20px;
-    }
-    th, td {
-      border: 1px solid #ccc;
-      padding: 10px;
-      text-align: left;
-    }
-    th {
-      background-color: #ffd6db;
-    }
-    .status-agendado { background-color: #ffe0e0; }
-    .status-cancelado { background-color: #fdd; }
-    .status-realizado { background-color: #d0ffd0; }
-    .form-section {
-      background-color: #fff0f0;
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-    .form-section input, .form-section select {
-      margin: 5px 0;
-      padding: 5px;
-      width: 100%;
-    }
-    .admin-only {
-      display: none;
-    }
-    #config-icon {
-      cursor: pointer;
-      font-size: 20px;
-    }
-    #config-modal {
-      display: none;
-      position: fixed;
-      top: 50px;
-      right: 20px;
-      background: white;
-      border: 1px solid #ccc;
-      padding: 20px;
-      z-index: 1000;
-    }
-    .pdf-buttons button {
-      margin-right: 5px;
-    }
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f2f2f2; }
+    header { background: #c62828; color: white; padding: 1rem; text-align: center; }
+    nav { background: #fff; padding: 1rem; display: flex; justify-content: space-around; }
+    nav button { padding: 0.5rem 1rem; cursor: pointer; }
+    section { display: none; padding: 1rem; }
+    section.active { display: block; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    th, td { border: 1px solid #ccc; padding: 8px; }
+    form input, form select { margin: 5px 0; padding: 5px; width: 100%; }
+    h2 { margin-top: 0; }
   </style>
 </head>
 <body>
-  <div id="loginScreen">
-    <h2>Login</h2>
-    <input type="text" id="loginUser" placeholder="Usuário">
-    <input type="password" id="loginPass" placeholder="Senha">
-    <button onclick="login()">Entrar</button>
-  </div>
-
   <header>
-    <div style="display:flex; align-items:center;">
-      <img src="ENDOCARDIO.png" alt="Endocardio Logo">
-      <h1>Agendamento de Cirurgias</h1>
-    </div>
-    <div id="config-icon" onclick="toggleConfig()">⚙️</div>
+    <h1>Sistema Representante Comercial</h1>
   </header>
+  <nav>
+    <button onclick="showTab('prospeccao')">Prospecção</button>
+    <button onclick="showTab('calendario')">Calendário</button>
+    <button onclick="showTab('cronograma')">Cronograma</button>
+    <button onclick="showTab('cirurgias')">Agendamentos</button>
+    <button onclick="showTab('autorizadas')">Cirurgias Autorizadas</button>
+    <button onclick="showTab('config')">Configurações</button>
+  </nav>
 
-  <div id="config-modal">
-    <h3>Configuração de Acesso</h3>
-    <label>Adicionar usuário (senha padrão: 1234):</label>
-    <input type="text" id="addUser"><br>
-    <button onclick="salvarUsuario()">Salvar</button>
-  </div>
+  <section id="prospeccao" class="active">
+    <h2>Prospecção de Clientes</h2>
+    <form id="formProspecao">
+      <input type="text" name="cliente" placeholder="Nome do Cliente" required />
+      <input type="date" name="dataVisita" required />
+      <button type="submit">Adicionar</button>
+    </form>
+    <table id="tabelaProspecao"><thead><tr><th>Cliente</th><th>Data</th></tr></thead><tbody></tbody></table>
+  </section>
 
-  <div class="container">
-    <div class="form-section">
-      <h2>Incluir Agendamento</h2>
-      <form id="agendamentoForm">
-        <input type="text" placeholder="Paciente" name="paciente" required>
-        <input type="text" placeholder="Procedimento" name="procedimento" required>
-        <input type="text" placeholder="Médico" name="medico" required>
-        <input type="date" name="data" required>
-        <input type="text" placeholder="Convênio" name="convenio" required>
-        <input type="text" placeholder="Hospital" name="hospital" required>
-        <input type="text" placeholder="Instrumentador" name="instrumentador" required>
-        <select name="status">
-          <option value="Agendado">Agendado</option>
-          <option value="Cancelado">Cancelado</option>
-          <option value="Realizado">Realizado</option>
-        </select>
-        <input type="file" name="pdf" accept="application/pdf">
-        <button type="submit">Adicionar</button>
-      </form>
-    </div>
+  <section id="calendario">
+    <h2>Calendário de Cirurgias</h2>
+    <div id="calendarPlaceholder">[Calendário simples - versão local]</div>
+  </section>
 
-    <div class="admin-only">
-      <h2>Remover Agendamento</h2>
-      <button onclick="removerSelecionado()">Remover Selecionado</button>
-    </div>
+  <section id="cronograma">
+    <h2>Cronograma Mensal</h2>
+    <p>Visualização mensal baseada nos dados de agendamento.</p>
+  </section>
 
-    <h2>Lista de Agendamentos</h2>
-    <table id="tabelaAgendamentos">
-      <thead>
-        <tr>
-          <th>Data</th>
-          <th>Paciente</th>
-          <th>Procedimento</th>
-          <th>Médico</th>
-          <th>Convênio</th>
-          <th>Hospital</th>
-          <th>Instrumentador</th>
-          <th>Status</th>
-          <th>Anexo</th>
-          <th>Selecionar</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
+  <section id="cirurgias">
+    <h2>Agendar Cirurgia</h2>
+    <form id="formCirurgia">
+      <input type="date" name="data" required />
+      <input type="text" name="paciente" placeholder="Paciente" required />
+      <input type="text" name="medico" placeholder="Médico" required />
+      <input type="text" name="procedimento" placeholder="Procedimento" required />
+      <input type="text" name="convenio" placeholder="Convênio" required />
+      <input type="text" name="hospital" placeholder="Hospital" required />
+      <input type="text" name="instrumentador" placeholder="Instrumentador" required />
+      <button type="submit">Agendar</button>
+    </form>
+    <table id="tabelaCirurgias"><thead><tr>
+      <th>Data</th><th>Paciente</th><th>Médico</th><th>Procedimento</th>
+      <th>Convênio</th><th>Hospital</th><th>Instrumentador</th>
+    </tr></thead><tbody></tbody></table>
+  </section>
+
+  <section id="autorizadas">
+    <h2>Cirurgias Autorizadas</h2>
+    <form id="formAutorizadas">
+      <input type="text" name="autorizada" placeholder="Cirurgia Autorizada" required />
+      <button type="submit">Cadastrar</button>
+    </form>
+    <ul id="listaAutorizadas"></ul>
+  </section>
+
+  <section id="config">
+    <h2>Gerenciamento de Dados</h2>
+    <p>Editar e excluir dados adicionados nas seções anteriores.</p>
+  </section>
 
   <script>
-    const tabela = document.querySelector("#tabelaAgendamentos tbody");
-    const usuariosPermitidos = ["Adm", "Vendedor"];
-    const senhas = { "Adm": "Adm", "Vendedor": "Vendedor" };
-    let usuarioLogado = null;
-    let isAdmin = false;
+    const showTab = (id) => {
+      document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    };
 
-    document.querySelector("#agendamentoForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      if (!usuarioLogado) return alert("Você precisa estar logado para incluir.");
-      const formData = new FormData(e.target);
-      const dados = Object.fromEntries(formData.entries());
-      const pdfFile = formData.get("pdf");
-      adicionarLinha(dados, pdfFile);
-      fetch("https://script.google.com/macros/s/AKfycbx9hLzhWH4UYu5oU4DOc203LmG0C44Rmexa8Af3FsL3CbvovQu_mTJCGbzJV6tKyTgm/exec", {
-        method: "POST",
-        body: JSON.stringify(dados),
-        headers: { "Content-Type": "application/json" }
-      });
-      e.target.reset();
-    });
-
-    function adicionarLinha(dados, pdfFile) {
-      const linha = document.createElement("tr");
-      linha.className = `status-${dados.status.toLowerCase()}`;
-      const statusCell = isAdmin ? 
-        `<select onchange="this.parentNode.parentNode.className='status-'+this.value.toLowerCase()"><option ${dados.status==='Agendado'?'selected':''}>Agendado</option><option ${dados.status==='Cancelado'?'selected':''}>Cancelado</option><option ${dados.status==='Realizado'?'selected':''}>Realizado</option></select>` 
-        : dados.status;
-      
-      let pdfHTML = '';
-      if (pdfFile && pdfFile.name) {
-        const url = URL.createObjectURL(pdfFile);
-        pdfHTML = `<div class="pdf-buttons">
-          <button onclick="window.open('${url}', '_blank')">Visualizar</button>
-          <a href="${url}" download="${pdfFile.name}"><button>Download</button></a>
-        </div>`;
-      }
-
-      linha.innerHTML = `
-        <td>${dados.data}</td>
-        <td>${dados.paciente}</td>
-        <td>${dados.procedimento}</td>
-        <td>${dados.medico}</td>
-        <td>${dados.convenio}</td>
-        <td>${dados.hospital}</td>
-        <td>${dados.instrumentador}</td>
-        <td>${statusCell}</td>
-        <td><div class="upload-area"></div></td>
-        <td><input type="checkbox" class="selecionado"></td>
-      `;
+    const adicionarLinhaTabela = (tabelaId, dados) => {
+      const tabela = document.getElementById(tabelaId).querySelector('tbody');
+      const linha = document.createElement('tr');
+      linha.innerHTML = dados.map(d => `<td>${d}</td>`).join('');
       tabela.appendChild(linha);
-      criarBotaoUpload(linha.cells[8], linha);
-    }
+    };
 
-    function removerSelecionado() {
-      if (!isAdmin) return alert("Apenas o administrador pode remover.");
-      const selecionados = document.querySelectorAll(".selecionado:checked");
-      selecionados.forEach(cb => cb.closest("tr").remove());
-    }
+    document.getElementById('formProspecao').onsubmit = (e) => {
+      e.preventDefault();
+      const { cliente, dataVisita } = e.target;
+      adicionarLinhaTabela('tabelaProspecao', [cliente.value, dataVisita.value]);
+      e.target.reset();
+    };
 
-    function toggleConfig() {
-      const modal = document.getElementById("config-modal");
-      modal.style.display = modal.style.display === "none" ? "block" : "none";
-    }
+    document.getElementById('formCirurgia').onsubmit = (e) => {
+      e.preventDefault();
+      const campos = Array.from(e.target.elements).filter(el => el.tagName === 'INPUT');
+      const dados = campos.map(c => c.value);
+      adicionarLinhaTabela('tabelaCirurgias', dados);
+      e.target.reset();
+    };
 
-    function salvarUsuario() {
-      const user = document.getElementById("addUser").value;
-      if (user && !usuariosPermitidos.includes(user)) {
-        usuariosPermitidos.push(user);
-        senhas[user] = "1234";
-        alert("Usuário autorizado para inclusão.");
-      }
-    }
-
-    function login() {
-      const user = document.getElementById("loginUser").value;
-      const pass = document.getElementById("loginPass").value;
-      if (senhas[user] && senhas[user] === pass) {
-        usuarioLogado = user;
-        isAdmin = (user === "Adm");
-        document.getElementById("loginScreen").style.display = "none";
-        if (isAdmin) {
-          document.querySelectorAll(".admin-only").forEach(el => el.style.display = "block");
-        }
-      } else {
-        alert("Usuário ou senha inválidos");
-      }
-    }
-  
-function criarBotaoUpload(celula, linha) {
-  const input = document.createElement("input");
-  input.type = "file";
-  input.accept = "application/pdf";
-  input.onchange = function () {
-    const file = input.files[0];
-    if (file) {
-      const url = URL.createObjectURL(file);
-      celula.innerHTML = `<div class='pdf-buttons'>
-        <button onclick="window.open('${url}', '_blank')">Visualizar</button>
-        <a href="${url}" download="${file.name}"><button>Download</button></a>
-      </div>`;
-      const statusCell = linha.cells[7];
-      if (statusCell.querySelector("select")) {
-        statusCell.querySelector("select").value = "Realizado";
-        linha.className = "status-realizado";
-      } else {
-        statusCell.innerText = "Realizado";
-        linha.className = "status-realizado";
-      }
-    }
-  };
-  celula.appendChild(input);
-}
-
-window.onload = function () {
-  fetch("https://script.google.com/macros/s/AKfycbx9hLzhWH4UYu5oU4DOc203LmG0C44Rmexa8Af3FsL3CbvovQu_mTJCGbzJV6tKyTgm/exec")
-    .then(res => res.json())
-    .then(data => {
-      data.forEach(agendamento => {
-        adicionarLinha(agendamento);
-      });
-    });
-};
-
-</script>
+    document.getElementById('formAutorizadas').onsubmit = (e) => {
+      e.preventDefault();
+      const input = e.target.autorizada;
+      const li = document.createElement('li');
+      li.textContent = input.value;
+      document.getElementById('listaAutorizadas').appendChild(li);
+      input.value = '';
+    };
+  </script>
 </body>
 </html>
